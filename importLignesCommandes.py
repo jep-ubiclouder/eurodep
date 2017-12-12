@@ -36,14 +36,49 @@ def audit():
     print('Comptes uniques',len(allSorifa))
     print('Produits uniques',len(allProduits))
     
-    qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Account where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in allSorifa])+')'
+    print('entering Scan Accounts IDs')
+    i= 0
+    tmp =[]
+    allSFAccIds =[]
+    while(i<len(allSorifa)):
+        tmp.append(allSorifa[i])
+        if i%400==0:
+            qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Account where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in tmp])+')'
+            allAccountIds = sf.query_all(qryFindFromSorifa)['records']
+            for r in allAccountIds:
+                allSFAccIds.append(r)
+            tmp=[]
+            print("%s / %s Accounts "%(i,len(allSorifa)))
+        i+=1
+
     
-    qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in allProduits])+')'
-    
+    qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Account where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in tmp])+')'
     allAccountIds = sf.query_all(qryFindFromSorifa)['records']
-    # allProductIds = sf.query_all(qryFindProduits)['records'] 
+    for r in allAccountIds:
+        allSFAccIds.append(r)
+    print('entering Scan Products IDs')
     
-    print('Comptes ds salesforce trouvés',len(allAccountIds))
-    #print('Produits ds salesforce trouvés',len(allProductIds))
+    
+    
+    i= 0
+    tmp =[]
+    allSFProdIds =[]
+    while(i<len(allProduits)):
+        tmp.append(allProduits[i])
+        if i%400==0:
+            qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in tmp])+')'
+            allAccountIds = sf.query_all(qryFindProduits)['records']
+            for r in allAccountIds:
+                allSFProdIds.append(r)
+            tmp=[]
+            print("%s / %s Products "%(i,len(allProduits)))
+        i+=1
+    qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in tmp])+')'
+    allAccountIds = sf.query_all(qryFindProduits)['records']
+    for r in allAccountIds:
+        allSFProdIds.append(r)
+    
+    print('Comptes ds salesforce trouvés',len(allSFIds))
+    print('Produits ds salesforce trouvés',len(allSFProdIds))
 if __name__=='__main__':
   audit()
