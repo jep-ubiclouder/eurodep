@@ -104,17 +104,19 @@ def audit():
         tmpFoundAcc.append(r['Code_Client_SOFIRA__c'])
         
     notfound =[]
-    
+    cpte = 0
     for  idAcc in  allLignes.keys():
         if idAcc not in  tmpFoundAcc:
+            cpte +=1
             notfound.append(idAcc)
             l = allLignes[idAcc]['data']
             if allLignes[idAcc]['type'] =='F': 
                 print(allLignes[idAcc]['type'],idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
             else:
-                  print(allLignes[idAcc]['type'],idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
+                print(allLignes[idAcc]['type'],idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
     qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Lead where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in notfound])+')'
     FoundLeads = sf.query_all(qryFindFromSorifa)['records'] 
     print('Leads trouves dans SF ',len(FoundLeads))
+    print('should be ',cpte)
 if __name__=='__main__':
   audit()
