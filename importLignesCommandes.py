@@ -104,7 +104,7 @@ def audit():
         tmpFoundAcc.append(r['Code_Client_SOFIRA__c'])
     for  idAcc in  allLignes.keys():
         if idAcc not in  tmpFoundAcc:
-            print(allLignes[idAcc]['type'],allLignes[idAcc]['data'])
+            print(allLignes[idAcc]['type'],idAcc ,allLignes[idAcc]['data'])
     
      
     
