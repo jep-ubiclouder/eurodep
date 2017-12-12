@@ -36,9 +36,11 @@ def audit():
                 allProduits.append(l['référence'])
                 
             if l['n°client facturé'] not in allLignes.keys():
+                allLignes[l['n°client facturé']]={}
                 allLignes[l['n°client facturé']]['data']=l
                 allLignes[l['n°client facturé']]['type']='F'
             if l['N°client livré'] not in allLignes.keys():
+                allLignes[l['N°client livré']] ={}
                 allLignes[l['N°client livré']]['data']=l
                 allLignes[l['N°client livré']]['type']='L'
     print('Comptes uniques',len(allSorifa))
