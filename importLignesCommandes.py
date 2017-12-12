@@ -41,9 +41,9 @@ def audit():
     qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in allProduits])+')'
     
     allAccountIds = sf.query_all(qryFindFromSorifa)['records']
-    allProductIds = sf.query_all(qryFindProduits)['records'] 
+    # allProductIds = sf.query_all(qryFindProduits)['records'] 
     
     print('Comptes ds salesforce trouvés',len(allAccountIds))
-    print('Produits ds salesforce trouvés',len(allProductIds))
+    #print('Produits ds salesforce trouvés',len(allProductIds))
 if __name__=='__main__':
   audit()
