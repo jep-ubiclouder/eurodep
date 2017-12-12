@@ -35,5 +35,15 @@ def audit():
                 allProduits.append(l['référence'])
     print('Comptes uniques',len(allSorifa))
     print('Produits uniques',len(allProduits))
+    
+    qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Account where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in allSorifa])+')'
+    
+    qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in allProducts])+')'
+    
+    allAccountIds = sf.query_all(qryFindFromSorifa)['records']
+    allProductIds = sf.query_all(qryFindProduits)['records'] 
+    
+    print('Comptes ds salesforce trouvés',len(allAccountIds))
+    print('Produits ds salesforce trouvés',len(allProductIds))
 if __name__=='__main__':
   audit()
