@@ -99,5 +99,14 @@ def audit():
         f.write(jsonAllPro)
     
     
+    tmpFoundAcc =[]
+    for r in allSFAccIds:
+        tmpFoundAcc.append(r['Code_Client_SOFIRA__c'])
+    for  idAcc in  allLignes.keys():
+        if idAcc not in  tmpFoundAcc:
+            print(allLignes[idAcc]['type'],allLignes[idAcc]['data'])
+    
+     
+    
 if __name__=='__main__':
   audit()
