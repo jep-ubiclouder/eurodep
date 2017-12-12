@@ -16,7 +16,7 @@ from simple_salesforce import (
 )
 
 import csv
-
+import json
 
 def audit():
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
@@ -24,6 +24,7 @@ def audit():
     allProduits = []
     allComptes =[]
     allSorifa =[]
+    allLignes ={}
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
         reader = csv.DictReader(f, delimiter=';')
         for l in reader:
@@ -33,6 +34,13 @@ def audit():
                 allSorifa.append(l['N°client livré'])
             if l['référence'] not in allProduits:
                 allProduits.append(l['référence'])
+                
+            if l['n°client facturé'] not in allLignes.keys()
+                allLignes[l['n°client facturé']]['data']=l
+                allLignes[l['n°client facturé']]['type']='F'
+            if l['N°client livré'] not in allLignes.keys()
+                allLignes[l['N°client livré']]['data']=l
+                allLignes[l['N°client livré']]['type']='L'
     print('Comptes uniques',len(allSorifa))
     print('Produits uniques',len(allProduits))
     
@@ -80,5 +88,14 @@ def audit():
     
     print('Comptes ds salesforce trouvés',len(allSFAccIds))
     print('Produits ds salesforce trouvés',len(allSFProdIds))
+    jsonAllAcc = json.dumps(allSFAccIds)
+    jsonAllPro = json.dumps(allSFProdIds)
+    
+    with open('./Accounts.json', 'w') as f:
+        f.write(jsonAllAcc)
+    with open('./Products.json', 'w') as f:
+        f.write(jsonAllPro)
+    
+    
 if __name__=='__main__':
   audit()
