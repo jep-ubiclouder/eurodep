@@ -78,7 +78,7 @@ def audit():
     for r in allAccountIds:
         allSFProdIds.append(r)
     
-    print('Comptes ds salesforce trouvés',len(allSFIds))
+    print('Comptes ds salesforce trouvés',len(allSFAccIds))
     print('Produits ds salesforce trouvés',len(allSFProdIds))
 if __name__=='__main__':
   audit()
