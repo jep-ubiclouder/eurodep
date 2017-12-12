@@ -104,8 +104,11 @@ def audit():
         tmpFoundAcc.append(r['Code_Client_SOFIRA__c'])
     for  idAcc in  allLignes.keys():
         if idAcc not in  tmpFoundAcc:
-            print(allLignes[idAcc]['type'],idAcc ,allLignes[idAcc]['data'])
-    
+            l = allLignes[idAcc]['data']
+            if allLignes[idAcc]['type'] =='F': 
+                print(allLignes[idAcc]['type'],idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
+            else:
+                  print(allLignes[idAcc]['type'],idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
      
     
 if __name__=='__main__':
