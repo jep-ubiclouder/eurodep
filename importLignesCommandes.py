@@ -38,7 +38,7 @@ def audit():
     
     qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Account where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in allSorifa])+')'
     
-    qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in allProducts])+')'
+    qryFindProduits =' select id, ProductCode from Product2 where ProductCode in ('+  ','.join(["\'%s\'" % c for c in allProduits])+')'
     
     allAccountIds = sf.query_all(qryFindFromSorifa)['records']
     allProductIds = sf.query_all(qryFindProduits)['records'] 
