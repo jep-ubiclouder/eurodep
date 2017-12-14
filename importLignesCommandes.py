@@ -105,6 +105,9 @@ def audit():
         
     notfound =[]
     cpte = 0
+    fLeadsFound = open('./LeadFound.txt','w')
+    fSorifaInconnus = open('./inconnus.txt','w')
+    
     for  idAcc in  allLignes.keys():
         if idAcc not in  tmpFoundAcc and len(idAcc)>1:
             cpte +=1
@@ -114,10 +117,35 @@ def audit():
                 print(idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
             else:
                 print(idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
+                            
     qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Lead where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in notfound])+')'
-    FoundLeads = sf.query_all(qryFindFromSorifa)['records'] 
+    FoundLeads = sf.query_all(qryFindFromSorifa)['records']
+    sorifaInLeads =[]
+    for r in FoundLeads:
+        sorifaInLeads.append(r['Code_Client_SOFIRA__c'])
+    
+    fLeadsFound = open('./LeadFound.txt','w')
+    fSorifaInconnus = open('./inconnus.txt','w')
+    for  idAcc in  allLignes.keys():
+        l = allLignes[idAcc]['data']
+        if allLignes[idAcc]['type'] =='F': 
+            print(idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
+        else:
+            print(idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
+
+        if idAcc in  tmpFoundAcc and len(idAcc)>1: ## trouvé dans compte  
+            continue
+        if idAcc in sorifaInLeads:  ## trouvé dans les Leads de SF
+            fLeadsFound.write(l)
+        else:
+            fSorifaInconnus.write(l)
+             
+            
+   
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',len(notfound))
+    
+    
     
 if __name__=='__main__':
   audit()
