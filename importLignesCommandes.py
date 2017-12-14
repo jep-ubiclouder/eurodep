@@ -106,7 +106,7 @@ def audit():
     notfound =[]
     cpte = 0
     for  idAcc in  allLignes.keys():
-        if idAcc not in  tmpFoundAcc:
+        if idAcc not in  tmpFoundAcc and len(idAcc)>1:
             cpte +=1
             notfound.append(idAcc)
             l = allLignes[idAcc]['data']
