@@ -118,5 +118,6 @@ def audit():
     FoundLeads = sf.query_all(qryFindFromSorifa)['records'] 
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',qryFindFromSorifa)
+    
 if __name__=='__main__':
   audit()
