@@ -132,22 +132,22 @@ def audit():
     for  idAcc in  allLignes.keys():
         l = allLignes[idAcc]['data']
         if allLignes[idAcc]['type'] =='F': 
-            print(idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
+            ligne = (idAcc ,l['F raison sociale'],l['F localité'],l['F ville'])
         else:
-            print(idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
+            ligne = (idAcc ,l['L raison sociale'],l['L localité'],l['L ville'])
 
         if idAcc in  tmpFoundAcc and len(idAcc)>1: ## trouvé dans compte  
             continue
         if idAcc in sorifaInLeads:  ## trouvé dans les Leads de SF
-            LeadsFound.append(l)
+            fLeadsFound.write(ligne)
         else:
-            SorifaInconnus.append(l)
+            fSorifaInconnus.write(ligne)
              
-    writer = csv.writer(fLeadsFound)
+    """writer = csv.writer(fLeadsFound)
     writer.writerows(LeadsFound)         
    
     writer = csv.writer(fSorifaInconnus)
-    writer.writerows(SorifaInconnus)
+    writer.writerows(SorifaInconnus)"""
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',len(notfound))
     
