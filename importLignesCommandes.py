@@ -139,9 +139,9 @@ def audit():
         if idAcc in  tmpFoundAcc and len(idAcc)>1: ## trouvé dans compte  
             continue
         if idAcc in sorifaInLeads:  ## trouvé dans les Leads de SF
-            fLeadsFound.write(ligne)
+            fLeadsFound.write("%s;%s;%s;%s\n"%ligne)
         else:
-            fSorifaInconnus.write(ligne)
+            fSorifaInconnus.write("%s;%s;%s;%s\n"%ligne)
              
     """writer = csv.writer(fLeadsFound)
     writer.writerows(LeadsFound)         
