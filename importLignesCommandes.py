@@ -117,7 +117,7 @@ def audit():
     qryFindFromSorifa = 'select id,Code_Client_SOFIRA__c,Name from Lead where Code_Client_SOFIRA__c in ('+','.join(["\'%s\'" % c for c in notfound])+')'
     FoundLeads = sf.query_all(qryFindFromSorifa)['records'] 
     print('Leads trouves dans SF ',len(FoundLeads))
-    print('should be ',qryFindFromSorifa)
+    print('should be ',len(notfound))
     
 if __name__=='__main__':
   audit()
