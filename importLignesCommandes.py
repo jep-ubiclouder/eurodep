@@ -126,6 +126,9 @@ def audit():
     
     fLeadsFound = open('./LeadFound.txt','w')
     fSorifaInconnus = open('./inconnus.txt','w')
+    LeadsFound =[]
+    SorifaInconnus =[]
+    
     for  idAcc in  allLignes.keys():
         l = allLignes[idAcc]['data']
         if allLignes[idAcc]['type'] =='F': 
@@ -136,12 +139,15 @@ def audit():
         if idAcc in  tmpFoundAcc and len(idAcc)>1: ## trouvé dans compte  
             continue
         if idAcc in sorifaInLeads:  ## trouvé dans les Leads de SF
-            fLeadsFound.write(l)
+            LeadsFound.append(l)
         else:
-            fSorifaInconnus.write(l)
+            SorifaInconnus.append(l)
              
-            
+    writer = csv.writer(fLeadsFound)
+    writer.writerows(LeadsFound)         
    
+    writer = csv.writer(fSorifaInconnus)
+    writer.writerows(SorifaInconnus)
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',len(notfound))
     
