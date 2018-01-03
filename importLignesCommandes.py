@@ -182,8 +182,9 @@ def splitBigFileByMonth():
             (j,m,a) = l['date document'].split('/')
             fn ='tobe-%s-%s.txt'%(a,m)
             if fn not in dicoPetitsFichiers.keys():
-                dicoPetitsFichiers[fn] = open('./'+fn,'w')
-            dicoPetitsFichiers[fn].write(l)
+                dicoPetitsFichiers[fn] = csv.DictWriter(open('./'+fn,'w'),fieldnames=l.keys())
+                dicoPetitsFichiers[fn].writeheader()
+            dicoPetitsFichiers[fn].writerow(l)
     print(tmpfilenames,len(tmpfilenames))
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
