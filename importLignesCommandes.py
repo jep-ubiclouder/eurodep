@@ -161,7 +161,7 @@ def massdelete(sf ,annee, mois):
     for r in records :
         tobedel.append(r['Id']+'\n')
     
-    audit = open('tobedel-%s.txt'%((annee*100)+mois),'w')
+    audit = open('Effacements-%s.txt'%((annee*100)+mois),'w')
     audit.writelines(tobedel)
     audit.close()             
     print((annee*100)+mois+1,'lignes:',len(tobedel))                                              
@@ -180,9 +180,9 @@ def splitBigFileByMonth():
         reader = csv.DictReader(f, delimiter=';')      
         for l in reader:
             (j,m,a) = l['date document'].split('/')
-            fn ='tobe-%s-%s.txt'%(a,m)
+            fn ='Insertions-%s-%s.txt'%(a,m)
             if fn not in dicoPetitsFichiers.keys():
-                dicoPetitsFichiers[fn] = csv.DictWriter(open('./'+fn,'w'),fieldnames=l.keys())
+                dicoPetitsFichiers[fn] = csv.DictWriter(open('./'+fn,'w'),fieldnames=l.keys(),delimiter=';')
                 dicoPetitsFichiers[fn].writeheader()
             dicoPetitsFichiers[fn].writerow(l)
     print(tmpfilenames,len(tmpfilenames))
@@ -192,6 +192,6 @@ if __name__=='__main__':
     
     for y in range(1996, 1999):
         for m in range(1,13):
-            #massdelete(sf, y,m)
+            massdelete(sf, y,m)
             pass
     splitBigFileByMonth()
