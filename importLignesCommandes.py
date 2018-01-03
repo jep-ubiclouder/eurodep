@@ -18,8 +18,8 @@ from simple_salesforce import (
 import csv
 import json
 
-def audit():
-    sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
+def audit(sf):
+    ## sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     
     allProduits = []
     allComptes =[]
@@ -150,8 +150,27 @@ def audit():
     writer.writerows(SorifaInconnus)"""
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',len(notfound))
+def massdelete(sf ,annee, mois):
+    # vu la masse de lignes a effacer, nous ferons des batchs.
+    strMonth= ['','01','02','03','04','05','06','07','08','09','10','11','12']
+    qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+strMonth[mois])
+    records = sf.query_all(qry)['records']
+    tobedel = []
+    for r in records :
+        tobedel.append(r['Id'])
     
+    audit = open('tobedel-%s-%s.txt'%((annee*100),strMonth[mois]),'w')
+    audit.writelines(tobedel)
+    audit.close()             
+                                                  
+    ## sf.bulk.delete(tobedel)
     
     
 if __name__=='__main__':
-  audit()
+    sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
+    ## audit(sf)
+    
+    for y in range(1996, 2010):
+        for m in range(1,13):
+            massdelete(sf, y,m)
+    
