@@ -182,7 +182,7 @@ def splitBigFileByMonth():
             (j,m,a) = l['date document'].split('/')
             fn ='tobe-%s-%s.txt'%(a,m)
             if fn not in dicoPetitsFichiers.keys():
-                dicoPetitsFichiers[fn] = open('./'+fn,w)
+                dicoPetitsFichiers[fn] = open('./'+fn,'w')
             dicoPetitsFichiers[fn].write(l)
     print(tmpfilenames,len(tmpfilenames))
 if __name__=='__main__':
