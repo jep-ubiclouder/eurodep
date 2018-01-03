@@ -161,7 +161,7 @@ def massdelete(sf ,annee, mois):
     for r in records :
         tobedel.append(r['Id']+'\n')
     
-    audit = open('tobedel-%s-%s.txt'%((annee*100),strMonth[mois-1]),'w')
+    audit = open('tobedel-%s.txt'%((annee*100)+mois),'w')
     audit.writelines(tobedel)
     audit.close()             
     print((annee*100)+mois+1,'lignes:',len(tobedel))                                              
@@ -175,14 +175,15 @@ def splitBigFileByMonth():
 ;;;;;;;;;;;;;;
     """
     tmpfilenames = []
+    dicoPetitsFichiers ={}
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv  
         reader = csv.DictReader(f, delimiter=';')      
         for l in reader:
             (j,m,a) = l['date document'].split('/')
-            fn ='tobe-%s-%s'%(a,m)
-            if fn not in tmpfilenames:
-                tmpfilenames.append(fn)
-        
+            fn ='tobe-%s-%s.txt'%(a,m)
+            if fn not in dicoPetitsFichiers.keys():
+                dicoPetitsFichiers[fn] = open('./'+fn,w)
+            dicoPetitsFichiers[fn].write(l)
     print(tmpfilenames,len(tmpfilenames))
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
