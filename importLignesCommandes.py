@@ -150,27 +150,45 @@ def audit(sf):
     writer.writerows(SorifaInconnus)"""
     print('Leads trouves dans SF ',len(FoundLeads))
     print('should be ',len(notfound))
+    
+    
 def massdelete(sf ,annee, mois):
     # vu la masse de lignes a effacer, nous ferons des batchs.
     strMonth= ['','01','02','03','04','05','06','07','08','09','10','11','12']
-    qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+mois+1)
+    qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+mois)
     records = sf.query_all(qry)['records']
     tobedel = []
     for r in records :
         tobedel.append(r['Id']+'\n')
     
-    audit = open('tobedel-%s-%s.txt'%((annee*100),strMonth[mois]),'w')
+    audit = open('tobedel-%s-%s.txt'%((annee*100),strMonth[mois-1]),'w')
     audit.writelines(tobedel)
     audit.close()             
     print((annee*100)+mois+1,'lignes:',len(tobedel))                                              
     ## sf.bulk.delete(tobedel)
-    
-    
+
+
+def splitBigFileByMonth():
+    reader = csv.DictReader(f, delimiter=';')
+    """
+        Reponse;Type document;Numéro document;Numéro document-ligne;Frais de port unique;date document;n°client facturé;N°client livré;montant net HT;Montant TVA;Montant net TTC;remise pied;poids;Fraisport;codeTVAport;TVAport;numero BL;ligne;référence;désignation;quantité;prix untaire brut;prix untaire net HT;remis ligne;codeTVA;TauxTVA;Total Brut HT;Total TVA du brut;Total brut TTC;Total net HT;Total TVA du net;Total net TTC;F raison sociale;F rue;F complément;F localité;F code postal;F ville;F pays;L raison sociale;L rue;L complément;L localité;L code postal;L ville;L pays;soumis tva;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+    """
+    tmpfilenames = []
+    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
+        for l in reader:
+            (j,m,a) = l['date document'].split('/')
+            fn ='tobe-%s-%s'%(a,m)
+            if fn not in tmpfilenames:
+                tmpfilenames.append(fn)
+        
+    print(tmpfilenames,len(tmpfilenames))
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     ## audit(sf)
     
     for y in range(1996, 1999):
         for m in range(1,13):
-            massdelete(sf, y,m)
-    
+            #massdelete(sf, y,m)
+            pass
+    splitBigFileByMonth()
