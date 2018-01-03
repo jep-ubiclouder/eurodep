@@ -169,13 +169,14 @@ def massdelete(sf ,annee, mois):
 
 
 def splitBigFileByMonth():
-    reader = csv.DictReader(f, delimiter=';')
+    
     """
         Reponse;Type document;Numéro document;Numéro document-ligne;Frais de port unique;date document;n°client facturé;N°client livré;montant net HT;Montant TVA;Montant net TTC;remise pied;poids;Fraisport;codeTVAport;TVAport;numero BL;ligne;référence;désignation;quantité;prix untaire brut;prix untaire net HT;remis ligne;codeTVA;TauxTVA;Total Brut HT;Total TVA du brut;Total brut TTC;Total net HT;Total TVA du net;Total net TTC;F raison sociale;F rue;F complément;F localité;F code postal;F ville;F pays;L raison sociale;L rue;L complément;L localité;L code postal;L ville;L pays;soumis tva;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;
     """
     tmpfilenames = []
-    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
+    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv  
+        reader = csv.DictReader(f, delimiter=';')      
         for l in reader:
             (j,m,a) = l['date document'].split('/')
             fn ='tobe-%s-%s'%(a,m)
