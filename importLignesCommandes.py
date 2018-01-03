@@ -153,7 +153,7 @@ def audit(sf):
 def massdelete(sf ,annee, mois):
     # vu la masse de lignes a effacer, nous ferons des batchs.
     strMonth= ['','01','02','03','04','05','06','07','08','09','10','11','12']
-    qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+strMonth[mois])
+    qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+mois+1)
     records = sf.query_all(qry)['records']
     tobedel = []
     for r in records :
