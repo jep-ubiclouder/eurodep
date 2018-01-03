@@ -157,12 +157,12 @@ def massdelete(sf ,annee, mois):
     records = sf.query_all(qry)['records']
     tobedel = []
     for r in records :
-        tobedel.append(r['Id'])
+        tobedel.append(r['Id']+'\n')
     
     audit = open('tobedel-%s-%s.txt'%((annee*100),strMonth[mois]),'w')
     audit.writelines(tobedel)
     audit.close()             
-                                                  
+    print((annee*100)+mois+1,'lignes:',len(tobedel))                                              
     ## sf.bulk.delete(tobedel)
     
     
@@ -170,7 +170,7 @@ if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     ## audit(sf)
     
-    for y in range(1996, 2010):
+    for y in range(1996, 1999):
         for m in range(1,13):
             massdelete(sf, y,m)
     
