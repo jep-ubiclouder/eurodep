@@ -197,7 +197,7 @@ def getAccounts(sf):
     
     for r in records:
         print(r)
-        fAccount.writerow(r)
+        fAccount.writerow({'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']})
 
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
