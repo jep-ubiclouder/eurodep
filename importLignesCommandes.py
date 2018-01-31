@@ -186,12 +186,26 @@ def splitBigFileByMonth():
                 dicoPetitsFichiers[fn].writeheader()
             dicoPetitsFichiers[fn].writerow(l)
     print(tmpfilenames,len(tmpfilenames))
+
+def getAccounts(sf):
+    qry = "select id,Code_Client_SOFIRA__c,name from account"
+    fn = 'accounts.csv'
+    
+    fAccount =  csv.DictWriter(open('./'+fn,'w'),fieldnames=['Id','Name','Code_Client_SOFIRA__c'],delimiter=';')
+    fAccount.writeheader()
+    records = sf.query_all(qry)['records']
+    
+   
+    fAccount.writerows(records)
+
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     ## audit(sf)
     
-    for y in range(1996, 1999):
+    geAccounts()
+    
+    """for y in range(1996, 1999):
         for m in range(1,13):
             massdelete(sf, y,m)
             pass
-    splitBigFileByMonth()
+    splitBigFileByMonth()"""
