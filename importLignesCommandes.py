@@ -190,14 +190,14 @@ def splitBigFileByMonth():
 def getAccounts(sf):
     qry = "select id,Code_Client_SOFIRA__c,name from account"
     fn = 'accounts.csv'
-    
-    fAccount =  csv.DictWriter(open('./'+fn,'w'),fieldnames=['Id','Name','Code_Client_SOFIRA__c'],delimiter=';')
-    fAccount.writeheader()
-    records = sf.query_all(qry)['records']
-    
-    for r in records:
-        print(r)
-        fAccount.writerow({'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']})
+    with open(fn,'w') as csvF:
+        fAccount =  csv.DictWriter(csvF,fieldnames=['Id','Name','Code_Client_SOFIRA__c'],delimiter=';')
+        fAccount.writeheader()
+        records = sf.query_all(qry)['records']
+        
+        for r in records:
+            # print(r)
+            fAccount.writerow({'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']})
 
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
