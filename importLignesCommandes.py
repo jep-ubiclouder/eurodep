@@ -190,10 +190,10 @@ def splitBigFileByMonth():
 def getAccounts(sf):
     qry = "select id,Code_Client_SOFIRA__c,name from account"
     fn = 'accounts.csv'
+    records = sf.query_all(qry)['records']
     with open(fn,'w') as csvF:
         fAccount =  csv.DictWriter(csvF,fieldnames=['Id','Name','Code_Client_SOFIRA__c'],delimiter=';')
         fAccount.writeheader()
-        records = sf.query_all(qry)['records']
         
         for r in records:
             # print(r)
