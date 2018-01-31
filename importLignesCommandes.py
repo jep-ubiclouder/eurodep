@@ -198,7 +198,7 @@ def getAccounts(sf):
         fAccount.writeheader()
         
         for r in records:
-            ligne = {'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']}
+            ligne = {'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']} 
             fAccount.writerow(ligne)
 
 if __name__=='__main__':
