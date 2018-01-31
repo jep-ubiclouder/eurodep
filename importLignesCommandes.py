@@ -202,7 +202,7 @@ if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     ## audit(sf)
     
-    geAccounts()
+    getAccounts(sf)
     
     """for y in range(1996, 1999):
         for m in range(1,13):
