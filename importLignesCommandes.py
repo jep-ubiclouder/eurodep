@@ -195,8 +195,9 @@ def getAccounts(sf):
     fAccount.writeheader()
     records = sf.query_all(qry)['records']
     
-   
-    fAccount.writerows(records)
+    for r in records:
+        print(r)
+        fAccount.writerow(r)
 
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
