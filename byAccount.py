@@ -14,6 +14,8 @@ from simple_salesforce import (
 
 import csv
 import json
+import pprint
+
 
 def checkAccount(strAccId):
     forAccount = []
@@ -22,7 +24,9 @@ def checkAccount(strAccId):
         for l in reader:
             if l['n°client facturé']  == strAccId:
                 forAccount.append(l)
-    print(forAccount)
-
+    
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(forAccount)
+    print(len(forAccount))
 if __name__ == '__main__':
     checkAccount('010643')
