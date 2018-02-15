@@ -29,4 +29,4 @@ def checkAccount(strAccId):
     pp.pprint(forAccount)
     print(len(forAccount))
 if __name__ == '__main__':
-    checkAccount('010643')
+    checkAccount('007798')
