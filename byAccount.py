@@ -37,12 +37,14 @@ def checkAccount(strAccId):
             
             
             
-    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
+    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
+                
         reader = csv.DictReader(f, delimiter=';')
         rejected=[]
         for l in reader:
-            if l['n°client facturé']  == strAccId:
-                
+            ddc = dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+            ## if l['n°client facturé']  == strAccId:
+            if ddc.month== 1  and ddc.year ==2008:    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
@@ -63,7 +65,7 @@ def checkAccount(strAccId):
                                 'Ligne__c': 0,
                                 'Prix_Brut__c' : float(l['Frais de port unique']), 
                                 'Prix_Net__c' : float(l['Frais de port unique']),
-                                'Quantite__c' :l['quantité'],                                
+                                'Quantite__c' :1,                                
                                 'Facture__c':l['numero BL'],
                                 'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                             })
@@ -89,7 +91,7 @@ def checkAccount(strAccId):
                 
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(forAccount)
-    
+    print(len(rejected))
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
                  'date document':'Date_de_commande__c',
