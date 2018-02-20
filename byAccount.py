@@ -38,7 +38,7 @@ def checkAccount(strAccId):
         reader = csv.DictReader(f, delimiter=';')
         rejected={'produit':{},'client':{}}
         for l in reader:
-            ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+            ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY'})
             ## if l['n°client facturé']  == strAccId:
             if ddc and ddc.month<4  and ddc.year ==2008:    
                 ## forAccount.append(l)
