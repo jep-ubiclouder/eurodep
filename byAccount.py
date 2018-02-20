@@ -21,12 +21,21 @@ def checkAccount(strAccId):
     forAccount = []
     allrecords = {}
     dicoAccounts ={}
+    dicoProduits = {}
+    
+    ## 
     with open('./accounts.csv','r') as allAccs:
         reader  =  csv.DictReader(allAccs,delimiter=';')
         for ligne in reader : 
             dicoAccounts[ligne['Code_Client_SOFIRA__c']] = ligne['Id']
     
-    
+    with open('./products.csv','r') as allAccs:
+        reader  =  csv.DictReader(allAccs,delimiter=';')
+        for ligne in reader : 
+            dicoProduits[ligne['ProductCode']] = ligne['Id']
+            
+            
+            
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
         reader = csv.DictReader(f, delimiter=';')
         for l in reader:
@@ -41,7 +50,19 @@ def checkAccount(strAccId):
                     remPied=float(l['remise pied'])
                 else:  
                     remPied=0.00
-                record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
+                    
+                remise = (1-remLign)*(1-remPied)
+                record = {  'Code_Produit_SORIFA__c' : l['référence'],
+                            'Produit__c' :  dicoProduits[l['référence']],
+                            'Compte__c' : dicoAccounts[l['N°client livré']],
+                            'Bon_de_livraison__c' : l['Numéro document'],
+                            'Ligne__c': l['ligne'],
+                            'Prix_Brut__c' : float(l['prix untaire brut']), 
+                            'Prix_Net__c' : float(l['prix untaire brut']) * remise
+                            'Quantite__c' l['quantité']
+                        }
+                
+                 ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
                 forAccount.append(record)
                 
     pp = pprint.PrettyPrinter(indent=4)
