@@ -59,6 +59,7 @@ def checkAccount(strAccId):
                     try:
                         if l['N°client livré'] not in dicoAccounts.keys():
                             compte_client =  dicoAccounts['ZZZZZZ']
+                            
                         else:
                             compte_client = dicoAccounts[l['N°client livré']]
                         
@@ -107,12 +108,18 @@ def checkAccount(strAccId):
     ## pp.pprint(forAccount)
     print(len(rejected['client']))
     print(len(rejected['produit']))
-    print(len(forAccount))
     
-    
-    pp.pprint(rejected)
-    
-    
+    fn = './lignes.trim.1.2008.csv'
+    ## records = sf.query_all(qry)['records']
+    # print(len(records)) 
+    with open(fn,'w') as csvF:
+        fAccount =  csv.DictWriter(csvF,fieldnames=forAccount[0].keys(),delimiter=';')
+        print(fAccount)
+        fAccount.writeheader()
+        
+        for r in forAccount:
+            print(fAccount.writerow(r))
+
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
                  'date document':'Date_de_commande__c',
