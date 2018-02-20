@@ -38,6 +38,7 @@ def checkAccount(strAccId):
             
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv        
         reader = csv.DictReader(f, delimiter=';')
+        rejected=[]
         for l in reader:
             if l['n°client facturé']  == strAccId:
                 
@@ -63,13 +64,14 @@ def checkAccount(strAccId):
                                 'Prix_Net__c' : float(l['prix untaire brut']) * remise,
                                 'Quantite__c' :l['quantité']
                             }
+                    forAccount.append(record)
                 else:
-                    print(l)
+                    rejected.append(l)
                  ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
-                forAccount.append(record)
+                
                 
     pp = pprint.PrettyPrinter(indent=4)
-    ## pp.pprint(forAccount)
+    pp.pprint(rejected)
     
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
