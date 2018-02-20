@@ -52,16 +52,19 @@ def checkAccount(strAccId):
                     remPied=0.00
                     
                 remise = (1-remLign)*(1-remPied)
-                record = {  'Code_Produit_SORIFA__c' : l['référence'],
-                            'Produit__c' :  dicoProduits[l['référence']],
-                            'Compte__c' : dicoAccounts[l['N°client livré']],
-                            'Bon_de_livraison__c' : l['Numéro document'],
-                            'Ligne__c': l['ligne'],
-                            'Prix_Brut__c' : float(l['prix untaire brut']), 
-                            'Prix_Net__c' : float(l['prix untaire brut']) * remise,
-                            'Quantite__c' :l['quantité']
-                        }
                 
+                if l['référence'] in  dicoProduits.keys():
+                    record = {  'Code_Produit_SORIFA__c' : l['référence'],
+                                'Produit__c' :  dicoProduits[l['référence']],
+                                'Compte__c' : dicoAccounts[l['N°client livré']],
+                                'Bon_de_livraison__c' : l['Numéro document'],
+                                'Ligne__c': l['ligne'],
+                                'Prix_Brut__c' : float(l['prix untaire brut']), 
+                                'Prix_Net__c' : float(l['prix untaire brut']) * remise,
+                                'Quantite__c' :l['quantité']
+                            }
+                else:
+                    print(l)
                  ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
                 forAccount.append(record)
                 
