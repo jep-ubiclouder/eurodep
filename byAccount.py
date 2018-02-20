@@ -67,7 +67,7 @@ def checkAccount(strAccId):
                         
                         if float(l['Frais de port unique'])  > 0.00:
                             forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
-                                        'Produit__c' :  dicoProduits['POR000'],
+                                        'Produit__c' :  dicoProduits['POR000']['Id'],
                                         'Nom Compte': nom_compte,
                                         'Compte__c' : compte_client,
                                         'Bon_de_livraison__c' : l['Numéro document'],
@@ -80,7 +80,7 @@ def checkAccount(strAccId):
                                     })
                         if l['prix untaire brut']:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
-                                    'Produit__c' :  dicoProduits[l['référence']],
+                                    'Produit__c' :  dicoProduits[l['référence']]['Id'],
                                     'Nom Compte' :nom_compte,
                                     'Compte__c' :compte_client,
                                     'Bon_de_livraison__c' : l['Numéro document'],
@@ -93,7 +93,7 @@ def checkAccount(strAccId):
                                 }
                         else:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
-                                    'Produit__c' :  dicoProduits[l['référence']],
+                                    'Produit__c' :  dicoProduits[l['référence']]['Id'],
                                     'Compte__c' : compte_client,
                                     'Nom Compte': nom_compte,
                                     'Bon_de_livraison__c' : l['Numéro document'],
