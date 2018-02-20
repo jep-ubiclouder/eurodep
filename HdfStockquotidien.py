@@ -67,7 +67,7 @@ if __name__ == '__main__':
     fn = getfromFTP(compactDate)
     if not fn:
         fn = './OIMG51517102400001.CSV'
-    
+        return False
     csvFile =  open(fn,'r')
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     qryProd= 'select id,ProductCode from Product2'
