@@ -65,39 +65,44 @@ def checkAccount(strAccId):
                 elif  l['N°client livré'] not in dicoAccounts.keys():
                     rejected['client'].append(l)
                 else:
-                    if l['Frais de port unique']:
-                        forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
-                                    'Produit__c' :  dicoProduits['POR000'],
+                    try:
+                        if l['Frais de port unique']:
+                            forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
+                                        'Produit__c' :  dicoProduits['POR000'],
+                                        'Compte__c' : dicoAccounts[l['N°client livré']],
+                                        'Bon_de_livraison__c' : l['Numéro document'],
+                                        'Ligne__c': 0,
+                                        'Prix_Brut__c' : float(l['Frais de port unique']), 
+                                        'Prix_Net__c' : float(l['Frais de port unique']),
+                                        'Quantite__c' :1,                                
+                                        'Facture__c':l['numero BL'],
+                                        'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                    })
+                        
+                        record = {  'Code_Produit_SORIFA__c' : l['référence'],
+                                    'Produit__c' :  dicoProduits[l['référence']],
                                     'Compte__c' : dicoAccounts[l['N°client livré']],
                                     'Bon_de_livraison__c' : l['Numéro document'],
-                                    'Ligne__c': 0,
-                                    'Prix_Brut__c' : float(l['Frais de port unique']), 
-                                    'Prix_Net__c' : float(l['Frais de port unique']),
-                                    'Quantite__c' :1,                                
+                                    'Ligne__c': l['ligne'],
+                                    'Prix_Brut__c' : float(l['prix untaire brut']), 
+                                    'Prix_Net__c' : float(l['prix untaire brut']) * remise,
+                                    'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
                                     'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
-                                })
-                    
-                    record = {  'Code_Produit_SORIFA__c' : l['référence'],
-                                'Produit__c' :  dicoProduits[l['référence']],
-                                'Compte__c' : dicoAccounts[l['N°client livré']],
-                                'Bon_de_livraison__c' : l['Numéro document'],
-                                'Ligne__c': l['ligne'],
-                                'Prix_Brut__c' : float(l['prix untaire brut']), 
-                                'Prix_Net__c' : float(l['prix untaire brut']) * remise,
-                                'Quantite__c' :l['quantité'],
-                                'Facture__c':l['numero BL'],
-                                'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
-                            }
-                    forAccount.append(record)
+                                }
+                        forAccount.append(record)
+                    except Exception as e:
+                        print(e)
+                        print(l)
                 
                  ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
                 
                 
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(forAccount)
+    ## pp.pprint(forAccount)
     print(len(rejected['client']))
     print(len(rejected['produit']))
+    print(len(forAccount))
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
                  'date document':'Date_de_commande__c',
