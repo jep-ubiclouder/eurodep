@@ -25,11 +25,11 @@ def checkAccount(strAccId):
             if l['n°client facturé']  == strAccId:
                 
                 ## forAccount.append(l)
-                if float(l['remis ligne']) >0 : 
+                if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
                 else:  
                     remLign=0.00
-                if float(l['remise pied']) >0 : 
+                if l['remise pied'] : 
                     remPied=float(l['remise pied'])
                 else:  
                     remPied=0.00
