@@ -40,7 +40,7 @@ def checkAccount(strAccId):
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
                 
         reader = csv.DictReader(f, delimiter=';')
-        rejected=[]
+        rejected={'produit':[],'client':[]}
         for l in reader:
             ddc = dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
             ## if l['n°client facturé']  == strAccId:
@@ -57,21 +57,27 @@ def checkAccount(strAccId):
                     
                 remise = (1-remLign)*(1-remPied)
                 
-                if l['Frais de port unique']:
-                    forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
-                                'Produit__c' :  dicoProduits['POR000'],
-                                'Compte__c' : dicoAccounts[l['N°client livré']],
-                                'Bon_de_livraison__c' : l['Numéro document'],
-                                'Ligne__c': 0,
-                                'Prix_Brut__c' : float(l['Frais de port unique']), 
-                                'Prix_Net__c' : float(l['Frais de port unique']),
-                                'Quantite__c' :1,                                
-                                'Facture__c':l['numero BL'],
-                                'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
-                            })
                 
                 
-                if l['référence'] in  dicoProduits.keys():
+                
+                if l['référence']  not in  dicoProduits.keys():
+                    rejected['produit'].append(l)
+                elif  l['N°client livré'] not in dicoAccounts.keys():
+                    rejected['client'].append(l)
+                else:
+                    if l['Frais de port unique']:
+                        forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
+                                    'Produit__c' :  dicoProduits['POR000'],
+                                    'Compte__c' : dicoAccounts[l['N°client livré']],
+                                    'Bon_de_livraison__c' : l['Numéro document'],
+                                    'Ligne__c': 0,
+                                    'Prix_Brut__c' : float(l['Frais de port unique']), 
+                                    'Prix_Net__c' : float(l['Frais de port unique']),
+                                    'Quantite__c' :1,                                
+                                    'Facture__c':l['numero BL'],
+                                    'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                })
+                    
                     record = {  'Code_Produit_SORIFA__c' : l['référence'],
                                 'Produit__c' :  dicoProduits[l['référence']],
                                 'Compte__c' : dicoAccounts[l['N°client livré']],
@@ -84,14 +90,14 @@ def checkAccount(strAccId):
                                 'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                             }
                     forAccount.append(record)
-                else:
-                    rejected.append(l)
+                
                  ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
                 
                 
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(forAccount)
-    print(len(rejected))
+    print(len(rejected['client']))
+    print(len(rejected['produit']))
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
                  'date document':'Date_de_commande__c',
