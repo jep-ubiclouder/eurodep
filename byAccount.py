@@ -64,7 +64,7 @@ def checkAccount(strAccId):
                                 'Prix_Brut__c' : float(l['Frais de port unique']), 
                                 'Prix_Net__c' : float(l['Frais de port unique']),
                                 'Quantite__c' :l['quantité'],                                
-                                'Facture__c:'l['numero BL'],
+                                'Facture__c':l['numero BL'],
                                 'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                             })
                 
@@ -78,7 +78,7 @@ def checkAccount(strAccId):
                                 'Prix_Brut__c' : float(l['prix untaire brut']), 
                                 'Prix_Net__c' : float(l['prix untaire brut']) * remise,
                                 'Quantite__c' :l['quantité'],
-                                'Facture__c:'l['numero BL'],
+                                'Facture__c':l['numero BL'],
                                 'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                             }
                     forAccount.append(record)
