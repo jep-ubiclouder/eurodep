@@ -59,7 +59,7 @@ def checkAccount(strAccId):
                             'Ligne__c': l['ligne'],
                             'Prix_Brut__c' : float(l['prix untaire brut']), 
                             'Prix_Net__c' : float(l['prix untaire brut']) * remise,
-                            'Quantite__c' l['quantité']
+                            'Quantite__c' :l['quantité']
                         }
                 
                  ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
