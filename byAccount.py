@@ -36,7 +36,7 @@ def checkAccount(strAccId):
 
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
         reader = csv.DictReader(f, delimiter=';')
-        rejected={'produit':[],'client':[]}
+        rejected={'produit':{},'client':{}}
         for l in reader:
             ddc = dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
             ## if l['n°client facturé']  == strAccId:
@@ -52,9 +52,9 @@ def checkAccount(strAccId):
                     remPied=0.00
                 remise = (1-remLign)*(1-remPied)
                 if l['référence']  not in  dicoProduits.keys():
-                    rejected['produit'].append(l)
+                    rejected['produit'][l['référence']] = l
                 elif  l['N°client livré'] not in dicoAccounts.keys():
-                    rejected['client'].append(l)
+                    rejected['client'][l['N°client livré'] ] = l
                 else:
                     try:
                         if l['Frais de port unique']:
