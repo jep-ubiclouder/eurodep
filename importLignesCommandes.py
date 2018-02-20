@@ -201,11 +201,25 @@ def getAccounts(sf):
             ligne = {'Id':r['Id'],'Name':r['Name'],'Code_Client_SOFIRA__c':r['Code_Client_SOFIRA__c']} 
             print(fAccount.writerow(ligne))
 
+def getProducts(sf):
+    qry = 'select id,Code_ACL__c,Name,EAN__c,ProductCode from Product2'
+    fn = 'products.csv'
+    records = sf.query_all(qry)['records']
+    print(len(records))
+    with open(fn,'w') as csvF:
+        fAccount =  csv.DictWriter(csvF,fieldnames=['Id','Name','ProductCode'],delimiter=';')
+        print(fAccount)
+        fAccount.writeheader()
+        
+        for r in records:
+            ligne = {'Id':r['Id'],'Name':r['Name'],'ProductCode':r['ProductCode']} 
+            print(fAccount.writerow(ligne))
+
 if __name__=='__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     ## audit(sf)
     
-    getAccounts(sf)
+    getProducts(sf)
     
     """for y in range(1996, 1999):
         for m in range(1,13):
