@@ -33,7 +33,7 @@ def checkAccount(strAccId):
                     remPied=float(l['remise pied'])
                 else:  
                     remPied=0.00
-                record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document']}
+                record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
                 forAccount.append(record)
                 
     pp = pprint.PrettyPrinter(indent=4)
