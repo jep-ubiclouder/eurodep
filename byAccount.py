@@ -78,14 +78,26 @@ def checkAccount(strAccId):
                                         'Facture__c':l['numero BL'],
                                         'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                     })
-                        
-                        record = {  'Code_Produit_SORIFA__c' : l['référence'],
+                        if l['prix untaire brut']:
+                            record = {  'Code_Produit_SORIFA__c' : l['référence'],
                                     'Produit__c' :  dicoProduits[l['référence']],
                                     'Compte__c' : dicoAccounts[l['N°client livré']],
                                     'Bon_de_livraison__c' : l['Numéro document'],
                                     'Ligne__c': l['ligne'],
                                     'Prix_Brut__c' : float(l['prix untaire brut']), 
                                     'Prix_Net__c' : float(l['prix untaire brut']) * remise,
+                                    'Quantite__c' :l['quantité'],
+                                    'Facture__c':l['numero BL'],
+                                    'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                }
+                        else:
+                            record = {  'Code_Produit_SORIFA__c' : l['référence'],
+                                    'Produit__c' :  dicoProduits[l['référence']],
+                                    'Compte__c' : dicoAccounts[l['N°client livré']],
+                                    'Bon_de_livraison__c' : l['Numéro document'],
+                                    'Ligne__c': l['ligne'],
+                                    'Prix_Brut__c' : 0.00, 
+                                    'Prix_Net__c' : 0.00,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
                                     'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
