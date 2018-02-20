@@ -58,7 +58,7 @@ def checkAccount(strAccId):
                             'Bon_de_livraison__c' : l['Numéro document'],
                             'Ligne__c': l['ligne'],
                             'Prix_Brut__c' : float(l['prix untaire brut']), 
-                            'Prix_Net__c' : float(l['prix untaire brut']) * remise
+                            'Prix_Net__c' : float(l['prix untaire brut']) * remise,
                             'Quantite__c' l['quantité']
                         }
                 
