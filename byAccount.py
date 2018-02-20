@@ -88,7 +88,7 @@ def checkAccount(strAccId):
                 
                 
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(rejected)
+    pp.pprint(forAccount)
     
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
