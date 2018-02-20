@@ -15,6 +15,7 @@ from simple_salesforce import (
 import csv
 import json
 import pprint
+import dateparser
 
 
 def checkAccount(strAccId):
@@ -54,6 +55,21 @@ def checkAccount(strAccId):
                     
                 remise = (1-remLign)*(1-remPied)
                 
+                if l['Frais de port unique']:
+                    forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000'',
+                                'Produit__c' :  dicoProduits[l['POR000']],
+                                'Compte__c' : dicoAccounts[l['N°client livré']],
+                                'Bon_de_livraison__c' : l['Numéro document'],
+                                'Ligne__c': 0,
+                                'Prix_Brut__c' : float(l['Frais de port unique']), 
+                                'Prix_Net__c' : float(l['Frais de port unique']),
+                                'Quantite__c' :l['quantité'],
+                                'Bon_de_livraison__c:'l['numero BL'],
+                                'Facture__c:'l['numero BL'],
+                                'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                            })
+                
+                
                 if l['référence'] in  dicoProduits.keys():
                     record = {  'Code_Produit_SORIFA__c' : l['référence'],
                                 'Produit__c' :  dicoProduits[l['référence']],
@@ -62,7 +78,10 @@ def checkAccount(strAccId):
                                 'Ligne__c': l['ligne'],
                                 'Prix_Brut__c' : float(l['prix untaire brut']), 
                                 'Prix_Net__c' : float(l['prix untaire brut']) * remise,
-                                'Quantite__c' :l['quantité']
+                                'Quantite__c' :l['quantité'],
+                                'Bon_de_livraison__c:'l['numero BL'],
+                                'Facture__c:'l['numero BL'],
+                                'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                             }
                     forAccount.append(record)
                 else:
