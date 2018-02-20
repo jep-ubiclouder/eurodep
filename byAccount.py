@@ -23,8 +23,7 @@ def checkAccount(strAccId):
     allrecords = {}
     dicoAccounts ={}
     dicoProduits = {}
-    
-    ## 
+
     with open('./accounts.csv','r') as allAccs:
         reader  =  csv.DictReader(allAccs,delimiter=';')
         for ligne in reader : 
@@ -34,17 +33,14 @@ def checkAccount(strAccId):
         reader  =  csv.DictReader(allAccs,delimiter=';')
         for ligne in reader : 
             dicoProduits[ligne['ProductCode']] = ligne['Id']
-            
-            
-            
+
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
-                
         reader = csv.DictReader(f, delimiter=';')
         rejected={'produit':[],'client':[]}
         for l in reader:
             ddc = dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
             ## if l['n°client facturé']  == strAccId:
-            if ddc and ddc.month== 1  and ddc.year ==2008:    
+            if ddc and ddc.month<4  and ddc.year ==2008:    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
@@ -54,12 +50,7 @@ def checkAccount(strAccId):
                     remPied=float(l['remise pied'])
                 else:  
                     remPied=0.00
-                    
                 remise = (1-remLign)*(1-remPied)
-                
-                
-                
-                
                 if l['référence']  not in  dicoProduits.keys():
                     rejected['produit'].append(l)
                 elif  l['N°client livré'] not in dicoAccounts.keys():
@@ -106,15 +97,16 @@ def checkAccount(strAccId):
                     except Exception as e:
                         print(e)
                         print(l)
-                
-                 ### record={'remise' : (1-remLign)*(1-remPied),'prix untaire brut':float(l['prix untaire brut']),'dateCommande':l['date document'],'puhtNet':float(l['prix untaire brut'])*(1-remLign)*(1-remPied)}
-                
-                
     pp = pprint.PrettyPrinter(indent=4)
     ## pp.pprint(forAccount)
     print(len(rejected['client']))
     print(len(rejected['produit']))
     print(len(forAccount))
+    
+    
+    pp.print(rejected)
+    
+    
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
                  'date document':'Date_de_commande__c',
@@ -131,6 +123,6 @@ def checkAccount(strAccId):
     Si Frais de port unique different de 0 créer un record frais de port 
     """
     
-    print(len(forAccount))
+    # print(len(forAccount))
 if __name__ == '__main__':
     checkAccount('007798')
