@@ -56,7 +56,7 @@ def checkAccount(strAccId):
                 remise = (1-remLign)*(1-remPied)
                 
                 if l['Frais de port unique']:
-                    forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000'',
+                    forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
                                 'Produit__c' :  dicoProduits[l['POR000']],
                                 'Compte__c' : dicoAccounts[l['N°client livré']],
                                 'Bon_de_livraison__c' : l['Numéro document'],
