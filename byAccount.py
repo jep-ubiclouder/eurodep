@@ -44,7 +44,7 @@ def checkAccount(strAccId):
         for l in reader:
             ddc = dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
             ## if l['n°client facturé']  == strAccId:
-            if ddc.month== 1  and ddc.year ==2008:    
+            if ddc and ddc.month== 1  and ddc.year ==2008:    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
