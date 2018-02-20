@@ -53,14 +53,20 @@ def checkAccount(strAccId):
                 remise = (1-remLign)*(1-remPied)
                 if l['référence']  not in  dicoProduits.keys():
                     rejected['produit'][l['référence']] = l
-                elif  l['N°client livré'] not in dicoAccounts.keys():
-                    rejected['client'][l['N°client livré'] ] = l
+                ## elif  l['N°client livré'] not in dicoAccounts.keys():
+                ##     rejected['client'][l['N°client livré'] ] = l
                 else:
                     try:
+                        if l['N°client livré'] not in dicoAccounts.keys():
+                            compte_client =  dicoAccounts['ZZZZZZ']
+                        else:
+                            compte_client = dicoAccounts[l['N°client livré']]
+                        
+                        
                         if l['Frais de port unique']:
                             forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
                                         'Produit__c' :  dicoProduits['POR000'],
-                                        'Compte__c' : dicoAccounts[l['N°client livré']],
+                                        'Compte__c' : compte_client,
                                         'Bon_de_livraison__c' : l['Numéro document'],
                                         'Ligne__c': 0,
                                         'Prix_Brut__c' : float(l['Frais de port unique']), 
@@ -72,7 +78,7 @@ def checkAccount(strAccId):
                         if l['prix untaire brut']:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
                                     'Produit__c' :  dicoProduits[l['référence']],
-                                    'Compte__c' : dicoAccounts[l['N°client livré']],
+                                    'Compte__c' :compte_client,
                                     'Bon_de_livraison__c' : l['Numéro document'],
                                     'Ligne__c': l['ligne'],
                                     'Prix_Brut__c' : float(l['prix untaire brut']), 
@@ -84,7 +90,7 @@ def checkAccount(strAccId):
                         else:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
                                     'Produit__c' :  dicoProduits[l['référence']],
-                                    'Compte__c' : dicoAccounts[l['N°client livré']],
+                                    'Compte__c' : compte_client,
                                     'Bon_de_livraison__c' : l['Numéro document'],
                                     'Ligne__c': l['ligne'],
                                     'Prix_Brut__c' : 0.00, 
