@@ -104,7 +104,7 @@ def checkAccount(strAccId):
     print(len(forAccount))
     
     
-    pp.print(rejected)
+    pp.pprint(rejected)
     
     
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
