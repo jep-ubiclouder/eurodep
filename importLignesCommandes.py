@@ -205,7 +205,7 @@ def getProducts(sf):
     qry = 'select id,Code_ACL__c,Name,EAN__c,ProductCode from Product2'
     fn = 'products.csv'
     records = sf.query_all(qry)['records']
-    print(len(records))
+    print(len(records)) 
     with open(fn,'w') as csvF:
         fAccount =  csv.DictWriter(csvF,fieldnames=['Id','Name','ProductCode'],delimiter=';')
         print(fAccount)
