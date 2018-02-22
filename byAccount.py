@@ -88,7 +88,8 @@ def checkAccount(strAccId):
                                         'Prix_Net__c' : float(l['Frais de port unique'])*sens,
                                         'Quantite__c' :1,                                
                                         'Facture__c':l['numero BL'],
-                                        'Date_de_commande__c': ddc 
+                                        'Date_de_commande__c': ddc ,
+                                        'Type doc':l['Type document']
                                         #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                     })
                         if l['prix untaire brut']:
@@ -102,7 +103,8 @@ def checkAccount(strAccId):
                                     'Prix_Net__c' : float(l['prix untaire brut']) * remise *sens,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
-                                    'Date_de_commande__c': ddc 
+                                    'Date_de_commande__c': ddc ,
+                                        'Type doc':l['Type document']
                                         #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                 }
                         else:
@@ -116,7 +118,8 @@ def checkAccount(strAccId):
                                     'Prix_Net__c' : 0.00,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
-                                    'Date_de_commande__c': ddc 
+                                    'Date_de_commande__c': ddc ,
+                                        'Type doc':l['Type document']
                                         #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                 }
                         forAccount.append(record)
