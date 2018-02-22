@@ -78,7 +78,8 @@ def checkAccount(strAccId):
                                         'Prix_Net__c' : float(l['Frais de port unique']),
                                         'Quantite__c' :1,                                
                                         'Facture__c':l['numero BL'],
-                                        'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                        'Date_de_commande__c': ddc) 
+                                        #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                     })
                         if l['prix untaire brut']:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
@@ -91,7 +92,8 @@ def checkAccount(strAccId):
                                     'Prix_Net__c' : float(l['prix untaire brut']) * remise,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
-                                    'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                    'Date_de_commande__c': ddc) 
+                                        #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                 }
                         else:
                             record = {  'Code_Produit_SORIFA__c' : l['référence'],
@@ -104,7 +106,8 @@ def checkAccount(strAccId):
                                     'Prix_Net__c' : 0.00,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
-                                    'Date_de_commande__c':dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
+                                    'Date_de_commande__c': ddc) 
+                                        #  dateparser.parse(l['date document'],date_formats=['%d/%B/%Y'],settings={'TIMEZONE': 'US/Eastern'})
                                 }
                         forAccount.append(record)
                     except Exception as e:
