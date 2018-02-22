@@ -16,7 +16,7 @@ import csv
 import json
 import pprint
 ## import dateparser
-from datetime import import date
+from datetime import date
 
 def checkAccount(strAccId):
     forAccount = []
