@@ -35,10 +35,15 @@ def checkAccount(strAccId):
             dicoProduits[ligne['ProductCode']] = ligne
 
     with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
+        
         reader = csv.DictReader(f, delimiter=';')
         rejected={'produit':{},'client':{}}
         for l in reader:
             ## ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY','TIMEZONE': '-0100'})
+            typeDoc = l['Type document']
+            sens = 1
+            if typeDoc !='F':
+                sens = -1 
             try:
                 (jj,mm,aaaa) = l['date document'].split('/')
             except Exception as e:
@@ -79,8 +84,8 @@ def checkAccount(strAccId):
                                         'Compte__c' : compte_client,
                                         'Bon_de_livraison__c' : l['Numéro document'],
                                         'Ligne__c': 0,
-                                        'Prix_Brut__c' : float(l['Frais de port unique']), 
-                                        'Prix_Net__c' : float(l['Frais de port unique']),
+                                        'Prix_Brut__c' : float(l['Frais de port unique'])*sens, 
+                                        'Prix_Net__c' : float(l['Frais de port unique'])*sens,
                                         'Quantite__c' :1,                                
                                         'Facture__c':l['numero BL'],
                                         'Date_de_commande__c': ddc 
@@ -93,8 +98,8 @@ def checkAccount(strAccId):
                                     'Compte__c' :compte_client,
                                     'Bon_de_livraison__c' : l['Numéro document'],
                                     'Ligne__c': l['ligne'],
-                                    'Prix_Brut__c' : float(l['prix untaire brut']), 
-                                    'Prix_Net__c' : float(l['prix untaire brut']) * remise,
+                                    'Prix_Brut__c' : float(l['prix untaire brut'])*sens, 
+                                    'Prix_Net__c' : float(l['prix untaire brut']) * remise *sens,
                                     'Quantite__c' :l['quantité'],
                                     'Facture__c':l['numero BL'],
                                     'Date_de_commande__c': ddc 
