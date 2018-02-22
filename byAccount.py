@@ -77,7 +77,7 @@ def checkAccount(strAccId):
                             nom_compte = dicoAccounts[l['N°client livré']]['Name']
                         
                         
-                        if float(l['Frais de port unique'])  > 0.00:
+                        if abs(float(l['Frais de port unique']))  > 0.01:
                             forAccount.append({  'Code_Produit_SORIFA__c' : 'POR000',
                                         'Produit__c' :  dicoProduits['POR000']['Id'],
                                         'Nom Compte': nom_compte,
