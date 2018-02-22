@@ -15,8 +15,8 @@ from simple_salesforce import (
 import csv
 import json
 import pprint
-import dateparser
-
+## import dateparser
+from datetime import import date
 
 def checkAccount(strAccId):
     forAccount = []
@@ -38,7 +38,9 @@ def checkAccount(strAccId):
         reader = csv.DictReader(f, delimiter=';')
         rejected={'produit':{},'client':{}}
         for l in reader:
-            ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY','TIMEZONE': '-0100'})
+            ## ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY','TIMEZONE': '-0100'})
+            (jj,mm,aaaa) = l['date document'].split('/')
+            ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
             if ddc and ddc.month<4  and ddc.year ==2008:    
                 ## forAccount.append(l)
