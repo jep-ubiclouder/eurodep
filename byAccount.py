@@ -132,7 +132,7 @@ def checkAccount(strAccId):
         fAccount.writeheader()
         
         for r in forAccount:
-            print(fAccount.writerow(r))
+            fAccount.writerow(r)
 
     dicoChamps ={'référence':'Code_Produit_SORIFA__c',
                  'Numéro document':'Bon_de_livraison__c',
