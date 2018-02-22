@@ -121,7 +121,7 @@ def checkAccount(strAccId):
     pp = pprint.PrettyPrinter(indent=4)
     ## pp.pprint(forAccount)
     print(len(rejected['client']))
-    print(len(rejected['produit']))
+    print(rejected['produit'])
     
     fn = './lignes.2008.all.csv'
     ## records = sf.query_all(qry)['records']
