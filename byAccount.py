@@ -47,7 +47,7 @@ def checkAccount(strAccId):
                 continue    
             ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
-            if ddc and ddc.month<4  and ddc.year ==2008:    
+            if ddc and  ddc.year ==2008:    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
@@ -123,7 +123,7 @@ def checkAccount(strAccId):
     print(len(rejected['client']))
     print(len(rejected['produit']))
     
-    fn = './lignes.trim.1.2008.csv'
+    fn = './lignes.2008.all.csv'
     ## records = sf.query_all(qry)['records']
     # print(len(records)) 
     with open(fn,'w') as csvF:
