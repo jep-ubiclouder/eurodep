@@ -42,7 +42,7 @@ def checkAccount(strAccId):
             ## ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY','TIMEZONE': '-0100'})
             typeDoc = l['Type document']
             sens = 1
-            if typeDoc !='F':
+            if typeDoc not in ('F','L') :
                 sens = -1 
             try:
                 (jj,mm,aaaa) = l['date document'].split('/')
