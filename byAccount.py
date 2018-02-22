@@ -42,8 +42,8 @@ def checkAccount(strAccId):
             try:
                 (jj,mm,aaaa) = l['date document'].split('/')
             except Exception as e:
-                print(e)
-                print(l)
+                ## print(e)
+                ## print(l)
                 continue    
             ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
