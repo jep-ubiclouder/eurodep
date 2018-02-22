@@ -120,7 +120,7 @@ if __name__ == '__main__':
         keyforupsert=acl+lot
         if acl in byCode.keys():
             record={'Lot__c':lot,'Produit__c':byCode[acl],'Qte_allouee__c':qteAll,'Unites_en_stock__c':qte,'name':keyforupsert,'Peremption__c':ddp}
-            print(record)
+            # print(record)
             ## print(keyforupsert,des,qte,acl,lot,byCode[acl])
             reponse = sf.Stock_eurodep__c.upsert('KeyForUpsert__c/%s' % keyforupsert,record, raw_response=True)
             if byCode[acl] not in byId.keys():
@@ -132,6 +132,6 @@ if __name__ == '__main__':
             
     for k in byId.keys():
         updateConso.append(byId[k])
-        print(updateConso)
+        # print(updateConso)
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
