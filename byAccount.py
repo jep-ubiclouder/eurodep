@@ -132,7 +132,7 @@ def checkAccount(strAccId):
     ## print( pp.pprint(rejected['produit']))
     
     for  k in rejected['produit'].keys():
-        print( k,';', rejected['produit'][k]['désignation']
+        print( k,';', rejected['produit'][k]['désignation'])
     
     fn = './lignes.2008.all.csv'
     ## records = sf.query_all(qry)['records']
