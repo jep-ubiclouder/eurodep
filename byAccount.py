@@ -39,7 +39,12 @@ def checkAccount(strAccId):
         rejected={'produit':{},'client':{}}
         for l in reader:
             ## ddc = dateparser.parse(l['date document'],date_formats=['%d/%m/%Y'],settings={'DATE_ORDER': 'DMY','TIMEZONE': '-0100'})
-            (jj,mm,aaaa) = l['date document'].split('/')
+            try:
+                (jj,mm,aaaa) = l['date document'].split('/')
+            except Exception as e:
+                print(e)
+                print(l)
+                continue    
             ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
             if ddc and ddc.month<4  and ddc.year ==2008:    
