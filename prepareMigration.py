@@ -39,8 +39,9 @@ def doIt(sf):
     ## insertion des lignes
     fieldsToInsert = ['Compte__c','Quantite__c','Date_de_commande__c','Facture__c','Ligne__c','Prix_Net__c','Produit__c','Bon_de_livraison__c','Prix_Brut__c']
     arrInsertions = []
+    nbreSent = 0
     with open('./lignes.2008.all.csv','r') as allRecords:
-        reader  =  csv.DictReader(allAccs,delimiter=';')
+        reader  =  csv.DictReader(allRecords,delimiter=';')
         for r in reader:
             if r['Date_de_commande__c'][:7]=='2008-01':
                 lai ={}
@@ -50,12 +51,15 @@ def doIt(sf):
                 arrInsertions.append(lai)
                 if len(arrInsertions) > 150:
                     try :
+                        print('Sending one batch ! ',nbreSent)
+                        nbreSent += 1
                         sf.bulk.commande__c.insert(arrInsertions)
                         arrInsertions = []
                     except Exception as e:
                         print('Erreur ', e)
                         sys.exit()
         try :
+            print('Sending remaining records ',nbreSent)
             sf.bulk.commande__c.insert(arrInsertions)
             arrInsertions = []
         except Exception as e:
