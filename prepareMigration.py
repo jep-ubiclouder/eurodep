@@ -49,7 +49,7 @@ def doIt(sf):
                     if k in fieldsToInsert:
                         lai[k] = r[k]
                 arrInsertions.append(lai)
-                if len(arrInsertions) > 150:
+                if len(arrInsertions) >= 250:
                     try :
                         print('Sending one batch ! ',nbreSent)
                         nbreSent += 1
