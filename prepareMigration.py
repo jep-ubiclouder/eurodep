@@ -43,10 +43,10 @@ def doIt(sf):
         reader  =  csv.DictReader(allAccs,delimiter=';')
         for r in reader:
             if r['Date_de_commande__c'][:7]=='2008-01':
-                 lai ={}
-                 for k in r.keys():
-                     if k in fieldsToInsert:
-                         lai[k] = r[k]
+                lai ={}
+                for k in r.keys():
+                    if k in fieldsToInsert:
+                        lai[k] = r[k]
                 arrInsertions.append(lai)
                 if len(arrInsertions) > 150:
                     try :
