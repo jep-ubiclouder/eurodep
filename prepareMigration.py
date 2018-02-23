@@ -24,7 +24,7 @@ def goDelete(sf):
             records = sf.query_all(qry)['records']
             tobedel = []
             for r in records :
-                if r['Facture__c'][0].isalpha():  ## si le premie char de facture__c est une lettre => vient de EURODEP
+                if r['Bon_de_livraison__c'][0].isalpha():  ## si le premie char de facture__c est une lettre => vient de EURODEP
                     continue                      ## donc on efface pas. 
                 tobedel.append({'Id':r['Id']})
             print((annee*100)+mois,'lignes:',len(tobedel))
