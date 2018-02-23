@@ -14,8 +14,6 @@ from simple_salesforce import (
 import sys
 from _datetime import timedelta
 from datetime import date
-from code import banner
-
 
 def goDelete(sf):
     
