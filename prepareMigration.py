@@ -14,7 +14,7 @@ from simple_salesforce import (
 import sys
 from _datetime import timedelta
 from datetime import date
-
+import csv
 def goDelete(sf):
     
     for annee in range(2006,2011):
