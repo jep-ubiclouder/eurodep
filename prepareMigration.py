@@ -24,11 +24,11 @@ def goDelete(sf):
             tobedel = []
             for r in records :
                 tobedel.append({'Id':r['Id']})
-                print((annee*100)+mois,'lignes:',len(tobedel))
-                try:
-                    sf.bulk.Commande__c.delete(tobedel)
-                except Exception as e:
-                    print(len(tobedel))
+            print((annee*100)+mois,'lignes:',len(tobedel))
+            try:
+                sf.bulk.Commande__c.delete(tobedel)
+            except Exception as e:
+                print(len(tobedel))
 
     
 
