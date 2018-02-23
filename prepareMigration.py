@@ -19,14 +19,16 @@ def goDelete(sf):
     
     for annee in range(2006,2011):
         for mois in range(1,13):
-            qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where Year_Month__c =' +'%s'%((annee*100)+mois)
+            qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where  Facture__c not like "F%" and Year_Month__c =' +'%s'%((annee*100)+mois)
+            print(qry)
             records = sf.query_all(qry)['records']
             tobedel = []
             for r in records :
                 tobedel.append({'Id':r['Id']})
             print((annee*100)+mois,'lignes:',len(tobedel))
             try:
-                sf.bulk.Commande__c.delete(tobedel)
+                if len(tobedel)>0:
+                    sf.bulk.Commande__c.delete(tobedel)
             except Exception as e:
                 print(len(tobedel))
 
