@@ -35,7 +35,34 @@ def goDelete(sf):
                 print(len(tobedel))
 
     
-
+def doIt(sf):
+    ## insertion des lignes
+    fieldsToInsert = ['Compte__c','Quantite__c','Date_de_commande__c','Facture__c','Ligne__c','Prix_Net__c','Produit__c','Bon_de_livraison__c','Prix_Brut__c']
+    arrInsertions = []
+    with open('./lignes.2008.all.csv','r') as allRecords:
+        reader  =  csv.DictReader(allAccs,delimiter=';')
+        for r in reader:
+            if r['Date_de_commande__c'][:7]=='2008-01':
+                 lai ={}
+                 for k in r.keys():
+                     if k in fieldsToInsert:
+                         lai[k] = r[k]
+                arrInsertions.append(lai)
+                if len(arrInsertions) > 150:
+                    try :
+                        sf.bulk.commande__c.insert(arrInsertions)
+                        arrInsertions = []
+                    except Exception as e:
+                        print('Erreur ', e)
+                        sys.exit()
+        try :
+            sf.bulk.commande__c.insert(arrInsertions)
+            arrInsertions = []
+        except Exception as e:
+            print('Erreur ', e)
+            sys.exit()                    
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    goDelete(sf)
+    doIt(sf)
+    
+    ## goDelete(sf)
