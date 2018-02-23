@@ -19,7 +19,7 @@ def goDelete(sf):
     
     for annee in range(2006,2011):
         for mois in range(1,13):
-            qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c FROM Commande__c where  Facture__c not like "F%" and Year_Month__c =' +'%s'%((annee*100)+mois)
+            qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c,Facture__c FROM Commande__c where  Facture__c not like "F%" and Year_Month__c =' +'%s'%((annee*100)+mois)
             print(qry)
             records = sf.query_all(qry)['records']
             tobedel = []
