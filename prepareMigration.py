@@ -43,7 +43,7 @@ def doIt(sf):
     with open('./lignes.2008.all.csv','r') as allRecords:
         reader  =  csv.DictReader(allRecords,delimiter=';')
         for r in reader:
-            if r['Date_de_commande__c'][:4]=='2007':
+            if r['Date_de_commande__c'][:4]=='2009':
                 lai ={}
                 for k in r.keys():
                     if k in fieldsToInsert:
