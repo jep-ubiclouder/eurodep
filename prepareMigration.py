@@ -17,7 +17,7 @@ from datetime import date
 import csv
 def goDelete(sf):
     
-    for annee in range(2002,2006):
+    for annee in range(2006,2007):
         for mois in range(1,13):
             qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c,Facture__c,Bon_de_livraison__c FROM Commande__c where  Year_Month__c =' +'%s'%((annee*100)+mois)
             print(qry)
