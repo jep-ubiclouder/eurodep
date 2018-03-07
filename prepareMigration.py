@@ -67,7 +67,7 @@ def doIt(sf):
             sys.exit()                    
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    ##goDelete(sf)
-    doIt(sf)
+    goDelete(sf)
+    ## doIt(sf)
     
     ## 
