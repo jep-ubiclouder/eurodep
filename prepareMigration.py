@@ -17,7 +17,7 @@ from datetime import date
 import csv
 def goDelete(sf):
     
-    for annee in range(1996,2012):
+    for annee in range(2012,2018):
         for mois in range(1,13):
             qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c,Facture__c,Bon_de_livraison__c FROM Commande__c where  Year_Month__c =' +'%s'%((annee*100)+mois)
             print(qry)
@@ -43,7 +43,7 @@ def doIt(sf):
     with open('./lignes.2008.all.csv','r') as allRecords:
         reader  =  csv.DictReader(allRecords,delimiter=';')
         for r in reader:
-            if int(r['Date_de_commande__c'][:4]) <2012:
+            if int(r['Date_de_commande__c'][:4]) >2011:
                 lai ={}
                 for k in r.keys():
                     if k in fieldsToInsert:
@@ -67,7 +67,7 @@ def doIt(sf):
             sys.exit()                    
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    ## goDelete(sf)
-    doIt(sf)
+    goDelete(sf)
+    # doIt(sf)
     
     ## 
