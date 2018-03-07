@@ -43,7 +43,7 @@ def doIt(sf):
     with open('./lignes.2008.all.csv','r') as allRecords:
         reader  =  csv.DictReader(allRecords,delimiter=';')
         for r in reader:
-            if int(r['Date_de_commande__c'][:4]) >=2002 and int(r['Date_de_commande__c'][:4]) <2007:
+            if (r['Date_de_commande__c'][:4]) <2012:
                 lai ={}
                 for k in r.keys():
                     if k in fieldsToInsert:
@@ -67,7 +67,7 @@ def doIt(sf):
             sys.exit()                    
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    goDelete(sf)
-    #doIt(sf)
+    ##goDelete(sf)
+    doIt(sf)
     
     ## 
