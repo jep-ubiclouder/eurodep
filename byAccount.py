@@ -52,7 +52,7 @@ def checkAccount(strAccId):
                 continue    
             ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
-            if ddc  and  ddc.year<2012 :    
+            if ddc  and  ddc.year>2011 :    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
