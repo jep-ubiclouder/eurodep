@@ -46,7 +46,7 @@ if __name__ == '__main__':
             remise = (1-remLign)*(1-remPied)
 
             rec ={'xl.Code produit':l['référence'],
-                  'xl.Facture':l['numero BL'],
+                  'xl.Facture':l['numero BL'], 
                   'xl.Code produit':l['référence'],
                   'xl.Prix_Brut' : float(l['prix untaire brut'])*sens, 
                   'xl.Prix_Net' : float(l['prix untaire brut']) * remise *sens,
