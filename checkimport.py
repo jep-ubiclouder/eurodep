@@ -23,7 +23,9 @@ if __name__ == '__main__':
     allLC =sf.query_all(qry)['records']
     byFacLig= {}
     
-    allKeys=allLC[0].keys()
+    allKeys=[]
+    for k in allLC[0].keys():
+        allKeys.append(k)
     for r in allLC:
         if r['Facture__c'] is not None and r['Ligne__c'] is not None:
             byFacLig[r['Facture__c']+'--'+r['Ligne__c']] = r
