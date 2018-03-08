@@ -94,5 +94,3 @@ if __name__ == '__main__':
         wr = csv.DictWriter(ctrl, fieldnames = allKeys,delimiter=';')
         for k in byFacLig.keys():
             wr.writerow(byFacLig[k])
-            
-    
