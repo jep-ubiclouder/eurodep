@@ -64,7 +64,11 @@ if __name__ == '__main__':
                 tmp = float(l['prix untaire brut'])
             except Exception as e:
                 l['prix untaire brut'] ='0'
-                
+            
+            try:
+                tmp = float(l['Frais de port unique'])
+            except Exception as e:
+                l['Frais de port unique'] ='0'   
             rec ={'xl.Code produit':l['référence'],
               'xl.Facture':l['numero BL'], 
               'xl.Code produit':l['référence'],
