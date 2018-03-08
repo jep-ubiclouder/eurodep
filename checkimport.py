@@ -23,7 +23,7 @@ if __name__ == '__main__':
     allLC =sf.query_all(qry)['records']
     byFacLig= {}
     
-    allKeys=allLc[0].keys()
+    allKeys=allLC[0].keys()
     for r in allLC:
         byFacLig[r['Facture__c']+'--'+r['Ligne__c']] = r
     
