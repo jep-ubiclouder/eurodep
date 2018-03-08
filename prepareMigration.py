@@ -64,10 +64,21 @@ def doIt(sf):
             arrInsertions = []
         except Exception as e:
             print('Erreur ', e)
-            sys.exit()                    
+            sys.exit()
+            
+def utilsDelete(sf):
+    qry = 'SELECT CreatedDate,Date_de_commande__c,Facture__c,Id FROM Commande__c WHERE CreatedDate < 2017-04-30T05:00:00Z'
+    rec =sf.query_all(qry)['records']
+    tobedel=[]  
+    for r in rec:
+        tobedel.append({'Id':r['Id']})
+    if len(tobedel)>0:
+        sf.bulk.Commande__c.delete(tobedel)
+                           
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     #goDelete(sf)
-    doIt(sf)
+    ## doIt(sf)
+    utilsDelete(sf)
     
     ## 
