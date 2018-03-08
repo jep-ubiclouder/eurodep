@@ -25,7 +25,8 @@ if __name__ == '__main__':
     
     allKeys=allLC[0].keys()
     for r in allLC:
-        byFacLig[r['Facture__c']+'--'+r['Ligne__c']] = r
+        if r['Facture__c'] is not None and r['Ligne__c'] is not None:
+            byFacLig[r['Facture__c']+'--'+r['Ligne__c']] = r
     
     
     rec ={'xl.Code produit':'',
