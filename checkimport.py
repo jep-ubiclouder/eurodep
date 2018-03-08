@@ -80,4 +80,4 @@ if __name__ == '__main__':
         for k in byFacLig.keys():
             wr.writerow(byFacLig[k])
             
-    
+
