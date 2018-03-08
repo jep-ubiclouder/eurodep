@@ -72,6 +72,7 @@ if __name__ == '__main__':
                   }
             except Exception as e:
                 print(l) 
+                print(e)
                 sys.exit()
             if l['numero BL']+'--'+l['ligne'] in byFacLig.keys():  
                 r = byFacLig[l['numero BL']+'--'+l['ligne']]
