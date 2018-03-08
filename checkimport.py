@@ -90,7 +90,7 @@ if __name__ == '__main__':
                   'xl.Prix_Brut' : float(l['Frais de port unique'])*sens, 
                   'xl.Prix_Net' : float(l['Frais de port unique'])*sens,
                   'xl.Ligne__c': '0',
-                  'xl.Quantite__c' :1
+                  'xl.Quantite__c' :sens
                   }
                 if l['numero BL']+'--0' in byFacLig.keys():
                     r = byFacLig[l['numero BL']+'--0']
