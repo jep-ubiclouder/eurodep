@@ -23,7 +23,7 @@ if __name__ == '__main__':
     allLC =sf.query_all(qry)['records']
     byFacLig= {}
     
-    allKeys=[]
+    allKeys=['Id', 'Prix_Brut__c','Prix_Net__c','Quantite__c','Remise__c' ,'Date_de_commande__c','Code_Produit_SORIFA__c','Facture__c','Ligne__c','C_A_Brut__c','C_A_Net__c','keyforupsert__c']
     for k in allLC[0].keys():
         allKeys.append(k)
     for r in allLC:
@@ -101,6 +101,7 @@ if __name__ == '__main__':
     ## csv.DictWriter(csvF,fieldnames=forAccount[0].keys(),delimiter=';')
     with open('./controleImport.csv','w') as ctrl:
         wr = csv.DictWriter(ctrl, fieldnames = allKeys,delimiter=';')
+        wr.writeheader()
         for k in byFacLig.keys():
             wr.writerow(byFacLig[k])
-            print(byFacLig[k])
+            ## print(byFacLig[k])
