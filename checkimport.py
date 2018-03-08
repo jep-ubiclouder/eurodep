@@ -20,7 +20,7 @@ if __name__ == '__main__':
     qry = 'select id, Prix_Brut__c,Prix_Net__c,Quantite__c,Remise__c ,Date_de_commande__c,Code_Produit_SORIFA__c,Facture__c,Ligne__c,C_A_Brut__c,C_A_Net__c,keyforupsert__c  from Commande__c'
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     
-    allLC =sf.query_all['records']
+    allLC =sf.query_all(qry)['records']
     byFacLig= {}
     
     allKeys=allLc[0].keys()
