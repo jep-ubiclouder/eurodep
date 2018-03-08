@@ -71,7 +71,7 @@ if __name__ == '__main__':
                   'xl.Quantite__c' :l['quantité'],
                   }
             except Exception as e:
-                print(l)
+                print(l) 
                 sys.exit()
             if l['numero BL']+'--'+l['ligne'] in byFacLig.keys():  
                 r = byFacLig[l['numero BL']+'--'+l['ligne']]
