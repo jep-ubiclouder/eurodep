@@ -34,7 +34,7 @@ def checkAccount(strAccId):
         for ligne in reader : 
             dicoProduits[ligne['ProductCode']] = ligne
 
-    with open('./archive_ldc.csv','r') as f: # Internet2017.csv venteshisto.csv
+    with open('./archive-fdp-04-01-2018.csv','r') as f: # Internet2017.csv venteshisto.csv
         
         reader = csv.DictReader(f, delimiter=';')
         rejected={'produit':{},'client':{}}
@@ -52,7 +52,7 @@ def checkAccount(strAccId):
                 continue    
             ddc = date(int(aaaa),int(mm),int(jj))
             ## if l['n°client facturé']  == strAccId:
-            if ddc  and  ddc.year>2011 :    
+            if ddc  and  ddc.year>=2016 :    
                 ## forAccount.append(l)
                 if l['remis ligne'] : 
                     remLign=float(l['remis ligne'])
