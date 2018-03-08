@@ -59,8 +59,10 @@ if __name__ == '__main__':
             else:  
                 remPied=0.00
             remise = (1-remLign)*(1-remPied)
+            
+            try:
 
-            rec ={'xl.Code produit':l['référence'],
+                  rec ={'xl.Code produit':l['référence'],
                   'xl.Facture':l['numero BL'], 
                   'xl.Code produit':l['référence'],
                   'xl.Prix_Brut' : float(l['prix untaire brut'])*sens, 
@@ -68,7 +70,9 @@ if __name__ == '__main__':
                   'xl.Ligne__c': l['ligne'],
                   'xl.Quantite__c' :l['quantité'],
                   }
-                            
+            except Exception as e:
+                print(l)
+                sys.exit()
             if l['numero BL']+'--'+l['ligne'] in byFacLig.keys():  
                 r = byFacLig[l['numero BL']+'--'+l['ligne']]
                 for k in rec.keys():
