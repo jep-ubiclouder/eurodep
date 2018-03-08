@@ -75,8 +75,7 @@ if __name__ == '__main__':
               'xl.Prix_Brut' :float(l['prix untaire brut']) *sens, 
               'xl.Prix_Net' : float(l['prix untaire brut']) * remise *sens,
               'xl.Ligne__c': l['ligne'],
-              'xl.Quantite__c' :l['quantité'],
-              'xl.Remise Globale' : remise
+              'xl.Quantite__c' :l['quantité']
               }
 
             if l['numero BL']+'--'+l['ligne'] in byFacLig.keys():  
@@ -91,7 +90,7 @@ if __name__ == '__main__':
                   'xl.Prix_Brut' : float(l['Frais de port unique'])*sens, 
                   'xl.Prix_Net' : float(l['Frais de port unique'])*sens,
                   'xl.Ligne__c': '0',
-                  'xl.Quantite__c' :1,
+                  'xl.Quantite__c' :1
                   }
                 if l['numero BL']+'--0' in byFacLig.keys():
                     r = byFacLig[l['numero BL']+'--0']
