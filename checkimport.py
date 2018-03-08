@@ -93,7 +93,7 @@ if __name__ == '__main__':
                   'xl.Quantite__c' :1,
                   }
                 if l['numero BL']+'--0' in byFacLig.keys():
-                    r = byFacLig[l['numero BL']+'--'+l['ligne']]
+                    r = byFacLig[l['numero BL']+'--0']
                     for k in rec.keys():
                         r[k] = rec[k]
     
