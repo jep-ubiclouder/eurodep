@@ -72,16 +72,26 @@ if __name__ == '__main__':
         # return False
     csvFile =  open(fn,'r') 
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    qryProd= 'select id,ProductCode from Product2'
-    res = sf.query_all(qryProd)
     byCode = {}
     tobeDel = []
+    
+    
+    qryProd= 'select id,ProductCode from Product2'
+    res = sf.query_all(qryProd)
+ 
     for r in res['records']:
         if r['ProductCode'] not in byCode.keys():
             byCode[r['ProductCode']] = r['Id']
             tobeDel.append({'Id': r['Id']})
+    
     ## on efface les records de stock   
-    print(tobeDel)     
+    ## print(tobeDel)     
+    sf.bulk.Stock_eurodep__c.delete(tobeDel)
+    qrySTockEuro = "select id from Stock_eurodep__c"
+    res = sf.query_all(qryProd)
+    tobeDel = []
+    for r in res['qrySTockEuro']:
+        tobeDel.append({'Id': r['Id']})
     sf.bulk.Stock_eurodep__c.delete(tobeDel)
     
     now = datetime.now() - timedelta(days=1)
