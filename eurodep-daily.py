@@ -69,7 +69,7 @@ def envoiemailTraite(LigneTraitee):
     msg['From'] = 'lignesdecommandes@batch.sorifa.com'
     msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com, dKannengieser@asyspro.fr' ## , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
     # Send the message via our own SMTP server.
-    s = smtplib.SMTP('smtp.dsl.ovh.net',port=25)
+    s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
     
     s.send_message(msg)
     s.quit()
