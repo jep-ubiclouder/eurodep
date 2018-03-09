@@ -88,9 +88,9 @@ if __name__ == '__main__':
     ## print(tobeDel)     
     sf.bulk.Stock_eurodep__c.delete(tobeDel)
     qrySTockEuro = "select id from Stock_eurodep__c"
-    res = sf.query_all(qryProd)
+    res = sf.query_all(qrySTockEuro)
     tobeDel = []
-    for r in res['qrySTockEuro']:
+    for r in res['records']:
         tobeDel.append({'Id': r['Id']})
     sf.bulk.Stock_eurodep__c.delete(tobeDel)
     
