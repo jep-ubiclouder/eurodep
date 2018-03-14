@@ -17,8 +17,8 @@ from datetime import date
 import csv
 def goDelete(sf):
     
-    for annee in range(2016,2018):
-        for mois in range(1,13):
+    for annee in range(2007,2008):
+        for mois in range(1,2):
             qry  = 'SELECT Date_de_commande__c ,id,Year_Month__c,Facture__c,Bon_de_livraison__c FROM Commande__c where  Year_Month__c =' +'%s'%((annee*100)+mois)
             print(qry)
             records = sf.query_all(qry)['records']
@@ -77,7 +77,7 @@ def utilsDelete(sf):
                            
 if __name__ == '__main__':
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    #goDelete(sf)
+    goDelete(sf)
     ## doIt(sf)
     utilsDelete(sf)
     
