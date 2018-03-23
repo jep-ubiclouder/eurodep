@@ -147,7 +147,7 @@ if __name__ == '__main__':
     for k in byId.keys():
         updateConso.append(byId[k])
         # print(updateConso)
-        if k =='SUD012':
+        if k =='01t0Y000001FrdjQAC':
             print(byId[k])
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
