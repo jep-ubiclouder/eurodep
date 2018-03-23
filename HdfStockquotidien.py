@@ -149,5 +149,6 @@ if __name__ == '__main__':
         # print(updateConso)
         if k =='01t0Y000001FrdjQAC':
             print(byId[k])
+    print(updateConso)
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
