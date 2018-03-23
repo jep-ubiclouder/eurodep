@@ -149,6 +149,8 @@ if __name__ == '__main__':
         # print(updateConso)
         if k =='01t0Y000001FrdjQAC':
             print(byId[k])
-    print(updateConso)
+    import pprint
+    pp = pprint.PrettyPrinter(width=41, compact=True)
+    pp.pprint(updateConso)
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
