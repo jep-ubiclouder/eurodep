@@ -139,7 +139,7 @@ if __name__ == '__main__':
             byId[byCode[acl]]['Stock_eurodep_total__c'] += int(qte.split('.')[0])
             if acl=='SUD012':
                 
-                print(qte,int(qte.split('.')[0]),byId[byCode[acl]]['Stock_eurodep_total__c'])   
+                print(qte,int(qte.split('.')[0]),byId[byCode[acl]]['Stock_eurodep_total__c'],byId[byCode[acl]])   
         else:
             print(keyforupsert,des,qte,acl,lot,'ERROR')
             
@@ -147,5 +147,7 @@ if __name__ == '__main__':
     for k in byId.keys():
         updateConso.append(byId[k])
         # print(updateConso)
+        if k =='SUD012':
+            print(byId[k])
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
