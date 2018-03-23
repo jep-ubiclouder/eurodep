@@ -143,14 +143,14 @@ if __name__ == '__main__':
         else:
             print(keyforupsert,des,qte,acl,lot,'ERROR')
             
-            
+    import pprint
+    pp = pprint.PrettyPrinter(width=41, compact=True)        
     for k in byId.keys():
         updateConso.append(byId[k])
         # print(updateConso)
         if k =='01t0Y000001FrdjQAC':
-            print(byId[k])
-    import pprint
-    pp = pprint.PrettyPrinter(width=41, compact=True)
-    pp.pprint(updateConso)
+            pp.pprint(byId[k])
+    
+    
     if len(updateConso)>0:
         sf.bulk.Product2.update(updateConso) 
