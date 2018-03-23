@@ -101,7 +101,7 @@ if __name__ == '__main__':
     updateConso = []
     byId ={}
     for r in resConso['records']:
-        print(r)
+        ## print(r)
         if r['Id'] not in byId.keys():
             byId[r['Id']] ={'Id':r['Id'], 'Stock_eurodep_total__c':0,'Conso_Mensuelle_annee_Courante__c':0,'Conso_Mensuelle_N_1__c':0} 
         
@@ -135,7 +135,10 @@ if __name__ == '__main__':
             reponse = sf.Stock_eurodep__c.upsert('KeyForUpsert__c/%s' % keyforupsert,record, raw_response=True)
             if byCode[acl] not in byId.keys():
                 byId[byCode[acl]] = {'Id':r['Id'], 'Stock_eurodep_total__c':0,'Conso_Mensuelle_annee_Courante__c':0,'Conso_Mensuelle_N_1__c':0} 
+            if acl=='SUD012':
+                print(qte,int(qte.split('.')[0]))    
             byId[byCode[acl]]['Stock_eurodep_total__c'] += int(qte.split('.')[0])
+            
         else:
             print(keyforupsert,des,qte,acl,lot,'ERROR')
             
