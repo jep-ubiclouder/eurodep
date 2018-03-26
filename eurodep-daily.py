@@ -128,14 +128,17 @@ def envoieEmailCI(clientsInconnus):
     print(texteHTML)
     from email.mime.text import MIMEText
     msg = MIMEText(texteHTML, 'html')
-    msg['Subject'] = 'Compte Inconnus'
-    msg['From'] = 'lignesdecommandes@batch.sorifa.com'
-    msg['To'] = 'LBRONNER@homme-de-fer.com,jep@ubiclouder.com'
+    msg['Subject'] = 'Lignes Integrées'
+    msg['From'] = 'salesforce@homme-de-fer.com' 
+    msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com,     jmastio@sfsorifa.com,    mlabarthe@homme-de-fer.com' ## , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
     # Send the message via our own SMTP server.
-    s = smtplib.SMTP('localhost')
+    ## s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
+    s =  smtplib.SMTP(host='smtp.homme-de-fer.com',port=25)
+    s.login('salesforce@homme-de-fer.com','S@lf0rc3!')
     s.send_message(msg)
     s.quit()
     print('Email Comptes envoyé')
+    
 
 def processFile(fname):
 
@@ -290,8 +293,11 @@ def processFile(fname):
             tmp['Compte__c'] ='0010Y000010w9dRQAQ'
             keyforupsert = r['NOFAC'] + str(r['LIGNE FAC'])
             
+            if  r['CODCLI'] not in CompteInconnus.keys():
+                CompteInconnus[r['CODCLI']] = [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
             ## print(tmp)
             try:
+                LigneTraitee.append(r)
                 sf.Commande__c.upsert('ky4upsert__c/%s' % keyforupsert, tmp, raw_response=True)
             except all_errors as e:
                 print(e)                
@@ -313,8 +319,7 @@ def processFile(fname):
                 sf.Commande__c.upsert('ky4upsert__c/%s' % keyforupsert, tmp, raw_response=True)
             except all_errors as e:
                 print(e)
-            if  r['CODCLI'] not in CompteInconnus.keys():
-                CompteInconnus[r['CODCLI']] = [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
+            
                     
     print(EANInconnus)
     print(CompteInconnus)
