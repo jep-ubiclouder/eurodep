@@ -113,8 +113,10 @@ def envoieEmailCI(clientsInconnus):
     texteHTML= """
     Bonjour,<br/>
     Voici une liste des clients présents dans le fichier EURODEP que je n'ai pas pu trouver dans SalesForce.<br/>
+    Je les ai rattaché au compte temporaire COMPTE RECUP LIGNES en attendant que vous retrouviez leurs parents <br/>
     Pouvez-vous les créer ou attacher le code Eurodep dans leur fiche, afin que je puisse ratacher les commandes.<br/>
     Le rattachement sera effectué une fois par heure entre 9 heures du matin et 14 heures tout les jours<br/>
+     
     """  
     tableau = '''<table>
     <tr><th>Code Eurodep </th><th> Nom </th><th> Adresse </th><th> Code Postal </th><th> Ville</th></tr>'''
