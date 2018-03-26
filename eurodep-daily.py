@@ -287,6 +287,7 @@ def processFile(fname):
             tmp['Ligne__c'] = r['LIGNE FAC']
             tmp['Code_Client_EURODEP__c'] =  r['CODCLI']
             tmp['CA_Eurodep__c'] = r['TOTNET']
+            tmp['Compte__c'] ='0010Y000010w9dRQAQ'
             keyforupsert = r['NOFAC'] + str(r['LIGNE FAC'])
             
             ## print(tmp)
