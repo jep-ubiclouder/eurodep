@@ -106,7 +106,7 @@ if __name__ == '__main__':
             byId[r['Id']] ={'Id':r['Id'], 'Stock_eurodep_total__c':0,'Conso_Mensuelle_annee_Courante__c':0,'Conso_Mensuelle_N_1__c':0} 
         
         if r['expr0'] == anneeEnCours:
-            byId[r['Id']]['Conso_Mensuelle_annee_Courante__c'] =float(r['expr1'])/12
+            byId[r['Id']]['Conso_Mensuelle_annee_Courante__c'] =float(r['expr1'])/now.month
         else:
             byId[r['Id']]['Conso_Mensuelle_N_1__c'] =float(r['expr1'])/12
    
