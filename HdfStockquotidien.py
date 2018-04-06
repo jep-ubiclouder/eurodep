@@ -96,7 +96,7 @@ if __name__ == '__main__':
     
     now = datetime.now() - timedelta(days=1)
     anneeEnCours = now.year
-    qry = """select produit__r.Id,CALENDAR_YEAR(date_de_commande__c) , sum(Quantite__c) from Commande__c  where produit__r.Id != null and CALENDAR_YEAR(date_de_commande__c)> %s GROUP BY produit__r.Id,CALENDAR_YEAR(date_de_commande__c)"""%(anneeEnCours-2)
+    qry = """select produit__r.Id,CALENDAR_YEAR(date_de_commande__c) , sum(Quantite__c) from Commande__c  where produit__r.Id != null and Compte__r.Id !='0010Y00000rs3auQAA' and CALENDAR_YEAR(date_de_commande__c)> %s GROUP BY produit__r.Id,CALENDAR_YEAR(date_de_commande__c)"""%(anneeEnCours-2)
     resConso = sf.query(qry)
     updateConso = []
     byId ={}
