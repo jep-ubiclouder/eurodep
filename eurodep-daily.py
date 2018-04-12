@@ -98,12 +98,13 @@ def envoieEmailAnomalieProduit(Liste):
     from email.mime.text import MIMEText
     msg = MIMEText(texteHTML, 'html')
     msg['Subject'] = 'EAN Inconnus'
-    msg['From'] = 'lignesdecommandes@batch.sorifa.com'
-    msg['To'] = 'LBRONNER@homme-de-fer.com,jep@ubiclouder.com'
+    msg['From'] = 'salesforce@homme-de-fer.com' 
+    msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com,     jmastio@sfsorifa.com,    mlabarthe@homme-de-fer.com' ## , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
     # Send the message via our own SMTP server.
-    s = smtplib.SMTP('localhost')
+    ## s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
+    s =  smtplib.SMTP(host='smtp.homme-de-fer.com',port=25)
+    s.login('salesforce@homme-de-fer.com','S@lf0rc3!')
     s.send_message(msg)
-    s.quit()
     print('Email EAN envoyé')
     
 def envoieEmailCI(clientsInconnus):
