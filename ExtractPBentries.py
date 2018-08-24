@@ -29,7 +29,7 @@ if __name__=='__main__':
     col = 0
     labels= ('Id' ,'Name','Pricebook2Id','Product2Id','UnitPrice','IsActive')
     for label in labels :
-        sheet1.write_string(col,line,label)
+        sheet1.write_string(line,col,label)
         col += 1
     
     
@@ -43,7 +43,7 @@ if __name__=='__main__':
         line += 1
         col = 0
         for label in labels:
-            sheet1.write(col,line,r[label])
+            sheet1.write(line,col,r[label])
             col += 1
     workbook.close()
         
