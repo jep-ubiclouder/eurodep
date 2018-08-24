@@ -43,7 +43,7 @@ if __name__=='__main__':
         line += 1
         col = 0
         for label in labels:
-            print(col,line,r[label])
+            sheet1.write(col,line,r[label])
             col += 1
     workbook.close()
         
