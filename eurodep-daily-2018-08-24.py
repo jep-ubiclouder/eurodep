@@ -46,9 +46,9 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['Produit__c'] =prodId['Id']
     retVal['Bon_de_livraison__c'] =recCSV['N° de BL Eurodep']
     
-    retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],recCSV['Date de facture'][:-7]))
+    retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],recCSV['Date de facture'][:-6]))
     if moins10:
-        retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],'0'+recCSV['Date de facture'][:-7]))
+        retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],'0'+recCSV['Date de facture'][:-6]))
     retVal['Prix_Brut__c'] =recCSV['Prix unitaire brut']
     retVal['Quantite__c'] =recCSV['Quantité facturé']
     retVal['Prix_Net__c'] =recCSV['Prix unitaire net']
