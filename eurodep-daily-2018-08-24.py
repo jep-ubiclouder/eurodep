@@ -92,7 +92,7 @@ if __name__=='__main__':
     
     qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s000\'" % cp[:-3] for cp in byCodeClient]) +','+ ','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +')'
     result = sf.query_all(qryClient)
-    
+    print(qryClient)
     refClient =  result['records']
     
     byCLIENT = {}
