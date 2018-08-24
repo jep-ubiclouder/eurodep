@@ -27,6 +27,12 @@ import csv
 
 import pprint
 if __name__=='__main__':
+    with open("./test_newFormat.csv", 'r', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            print(row);
+            
+        
     """
     Code laboratoire;
     Type de facture;
