@@ -46,14 +46,14 @@ if __name__=='__main__':
     
     
     sheet2 = workbook.add_worksheet()        
-    labels =('Id','Name')
+    labels =('Id','Name','ProductCode')
     line = 0
     col = 0
     
     for label in labels :
         sheet2.write_string(line,col,label)
         col += 1
-    qry =  'select Id , Name,IsActive from Product2 where IsActive = true'
+    qry =  'select Id , Name,ProductCode,IsActive from Product2 where IsActive = true'
     records =  sf.query_all(qry)['records']
     for r  in records:
         print(r)
