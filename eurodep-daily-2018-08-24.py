@@ -37,6 +37,10 @@ if __name__=='__main__':
             if row['Code article laboratoire'] not in byCodeLabo:
                 byCodeLabo.append(row['Code article laboratoire'])
     print(byCodeLabo)
+    qry = 'select id, ProductCode from  Product2 where ProductCode in ('+','.join([cp for cp in byCodeLabo]) +')'
+    print(qry)
+    
+    
         
     """
     Code laboratoire;
