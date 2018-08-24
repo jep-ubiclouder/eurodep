@@ -49,7 +49,7 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['Code_EAN_EURODEP__c'] =recCSV['']
     retVal['Ligne__c'] =recCSV['N° ligne de facture']
     retVal['Code_Client_EURODEP__c'] =recCSV['']
-    retVal['CA_Eurodep__c'] =recCSV['']
+    retVal['CA_Eurodep__c'] =recCSV['NormalizedEURODEP']
     retVal['Reference_Client__c'] =recCSV['Référence de commande du client']
     retVal['ky4upsert__c'] =recCSV['N° de facture']+recCSV['N° ligne de facture']
     retVal['Facture__c'] =recCSV['N° de facture']
