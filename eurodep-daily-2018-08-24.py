@@ -94,16 +94,20 @@ if __name__=='__main__':
     result = sf.query_all(qryClient)
     
     refClient =  result['records']
+    
     byCLIENT = {}
+    print(refClient)
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
     clientsNotinSF = listeNotPresent(byCodeClient,byCLIENT)
     
     toInsert  =[]
     for r in lignes:
+        '''
         print(r)
         print(r['Code article laboratoire'] in  bySORIFA.keys())
         print(r['Code Eurodep du client'] in byCLIENT.keys())
+        '''
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['Code Eurodep du client'] in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['Code Eurodep du client']]))
             
