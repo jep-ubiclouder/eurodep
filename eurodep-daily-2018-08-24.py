@@ -31,14 +31,18 @@ def listeNotPresent(listeCSV,listeQuery):
     retourne les membres de listeCSV qui ne sont pas dans ListeQuery
     """
     absents = []
-    absents.append([ item for item in listeCSV if item not in listeQuery.keys() and item not in absents ])
+    for item in listeCSV:
+        if item not in listeQuery.keys() and item not in absents:
+            absents.append(item)
     return absents
 
 def checkUnkownClients(listCSV,listQRY):
     roots =[]
-    roots.append([k[:-3] for k in listQRY.keys() if k[:-3] not in roots])
+    for item in listCSV:
+        if item not in listQRY.keys() and item[:-3] not in absents:
+            absents.append(item[:-3])
     
-    pass
+    return absents
 
 
 def newSFRecord(recCSV,prodId,accId):
@@ -125,7 +129,7 @@ if __name__=='__main__':
     refClient =  result['records']
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
-    clientsNotinSF = listeNotPresent(byCodeClient,byCLIENT)
+    clientsNotinSF = checkUnkownClients(byCodeClient,byCLIENT)
     
     toInsert  =[]
     for r in lignes:
