@@ -39,10 +39,16 @@ def listeNotPresent(listeCSV,listeQuery):
 
 def newSFRecord(recCSV,prodId,accId):
     retVal ={}
+    moins10= False
+    if int(recCSV['Date de facture'][:-7])<10:
+        moins10=True
     retVal['Compte__c'] =accId['Id']
     retVal['Produit__c'] =prodId['Id']
     retVal['Bon_de_livraison__c'] =recCSV['N° de BL Eurodep']
+    
     retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],recCSV['Date de facture'][:-7]))
+    if moins10:
+        retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],'0'+recCSV['Date de facture'][:-7]))
     retVal['Prix_Brut__c'] =recCSV['Prix unitaire brut']
     retVal['Quantite__c'] =recCSV['Quantité facturé']
     retVal['Prix_Net__c'] =recCSV['Prix unitaire net']
@@ -53,7 +59,7 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['Reference_Client__c'] =recCSV['Référence de commande du client']
     retVal['ky4upsert__c'] =recCSV['N° de facture']+recCSV['N° ligne de facture']
     retVal['Facture__c'] =recCSV['N° de facture']
-    print(retVal)
+    ## print(retVal)
     """
     retVal['Facture__c'] =recCSV['N° de facture']
     retVal[''] =recCSV['']
