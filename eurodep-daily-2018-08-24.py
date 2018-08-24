@@ -86,7 +86,7 @@ if __name__=='__main__':
     bySORIFA = {}
     for r in refProduits:
         bySORIFA[r['ProductCode']]=r
-    produitsNotinSF = listeNotPresent(byCodeLabo,tmpFromSF)
+    produitsNotinSF = listeNotPresent(byCodeLabo,bySORIFA)
     
     
     qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s\'" % cp for cp in byCodeClient]) +')'
@@ -96,7 +96,7 @@ if __name__=='__main__':
     byCLIENT = {}
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
-    clientsNotinSF = listeNotPresent(byCodeClient,tmpFromSF)
+    clientsNotinSF = listeNotPresent(byCodeClient,byCLIENT)
     
     toInsert  =[]
     for r in lignes:
