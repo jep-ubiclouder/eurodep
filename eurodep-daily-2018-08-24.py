@@ -40,7 +40,7 @@ def listeNotPresent(listeCSV,listeQuery):
 def newSFRecord(recCSV,prodId,accId):
     retVal ={}
     moins10= False
-    if int(recCSV['Date de facture'][:-7])<10:
+    if len(recCSV['Date de facture'])<8:
         moins10=True
     retVal['Compte__c'] =accId['Id']
     retVal['Produit__c'] =prodId['Id']
