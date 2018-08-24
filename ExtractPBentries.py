@@ -27,7 +27,7 @@ if __name__=='__main__':
     sheet1 = workbook.add_worksheet()
     line = 1
     col = 0
-    labels= ('Id' ,'Name','Pricebook2Id','Product2Id','unitPrice','isActive')
+    labels= ('Id' ,'Name','Pricebook2Id','Product2Id','UnitPrice','IsActive')
     for label in labels :
         sheet1.write_string(col,line,label)
         col += 1
@@ -36,7 +36,7 @@ if __name__=='__main__':
     
         
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    qry =  'select Id , Name,Pricebook2Id,Product2Id,unitPrice,isActive from PricebookEntry where isActive = true'
+    qry =  'select Id , Name,Pricebook2Id,Product2Id,unitPrice,IsActive from PricebookEntry where IsActive = true'
     records =  sf.query_all(qry)['records']
     for r  in records:
         print(r)
