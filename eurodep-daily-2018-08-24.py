@@ -32,12 +32,19 @@ def listeNotPresent(listeCSV,listeQuery):
     """
     absents = []
     for item in listeCSV:
-        if item not in listeQuery.keys():
+        if item not in listeQuery.keys() and item not in absents:
             absents.append(item)
     return absents
 
+def checkUnkownClients(listCSV,listQRY):
+    pass
+
 
 def newSFRecord(recCSV,prodId,accId):
+    """
+    constriut un record a partir de la ligne du CSv
+    Mappage statique
+    """
     retVal ={}
     moins10= False
     if len(recCSV['Date de facture'])<8:
