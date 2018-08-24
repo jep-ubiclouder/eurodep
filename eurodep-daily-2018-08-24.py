@@ -39,8 +39,8 @@ def listeNotPresent(listeCSV,listeQuery):
 
 def newSFRecord(recCSV,prodId,accId):
     retVal ={}
-    retVal['Compte__c'] =accId
-    retVal['Produit__c'] =prodId
+    retVal['Compte__c'] =accId['Id']
+    retVal['Produit__c'] =prodId['Id']
     retVal['Bon_de_livraison__c'] =recCSV['N° de BL Eurodep']
     retVal['Date_de_commande__c'] ='-'.join((recCSV['Date de facture'][-4:],recCSV['Date de facture'][-6:-4],recCSV['Date de facture'][:-7]))
     retVal['Prix_Brut__c'] =recCSV['Prix unitaire brut']
