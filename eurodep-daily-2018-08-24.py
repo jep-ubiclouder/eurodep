@@ -89,7 +89,7 @@ if __name__=='__main__':
     produitsNotinSF = listeNotPresent(byCodeLabo,tmpFromSF)
     
     
-    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s\'" % cp for cp in byCodeClient]) +')
+    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s\'" % cp for cp in byCodeClient]) +')'
     result = sf.query_all(qryClient)
     
     refClient =  result['records']
