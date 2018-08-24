@@ -95,7 +95,7 @@ if __name__=='__main__':
     
     print(qryClient)
     result = sf.query_all(qryClient)
-    print(qryClient)
+    ## print(qryClient)
     refClient =  result['records']
     
     byCLIENT = {}
@@ -105,9 +105,9 @@ if __name__=='__main__':
     
     qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +")" 
     
-    print(qryClient)
+    ## print(qryClient)
     result = sf.query_all(qryClient)
-    print(qryClient)
+    ## print(qryClient)
     refClient =  result['records']
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
@@ -120,7 +120,7 @@ if __name__=='__main__':
         print(r['Code article laboratoire'] in  bySORIFA.keys())
         print(r['Code Eurodep du client'] in byCLIENT.keys())
         '''
-        if r['Code article laboratoire'] in  bySORIFA.keys() and r['Code Eurodep du client'] in byCLIENT.keys():
+        if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'] in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP']]))
             
             
