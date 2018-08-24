@@ -42,10 +42,10 @@ def checkUnkownClients(listCSV,listQRY):
     for item in absents:
         if (item[:-3]+'515' not in listQRY.keys()) and (item[:-3]+'000' not in listQRY.keys()) and item not in res:
              res.append(item)
-        
-    
     return res
 
+def getNewClientData(clientsNotinSF,lignes):
+    for rec in ligne
 
 def newSFRecord(recCSV,prodId,accId):
     """
@@ -73,15 +73,6 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['Reference_Client__c'] =recCSV['Référence de commande du client']
     retVal['ky4upsert__c'] =recCSV['N° de facture']+recCSV['N° ligne de facture']
     retVal['Facture__c'] =recCSV['N° de facture']
-    print(retVal)
-    """
-    retVal['Facture__c'] =recCSV['N° de facture']
-    retVal[''] =recCSV['']
-    retVal[''] =recCSV['']
-    retVal[''] =recCSV['']
-    retVal[''] =recCSV['']
-    retVal[''] =recCSV['']
-    """
     return retVal
 
 if __name__=='__main__':
@@ -141,7 +132,8 @@ if __name__=='__main__':
             
     print(clientsNotinSF)
     print(produitsNotinSF)
-
+    if len(clientsNotinSF)>0:
+        getNewClientData(clientsNotinSF,lignes)
 
     
         
