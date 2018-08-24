@@ -27,11 +27,16 @@ import csv
 
 import pprint
 if __name__=='__main__':
+    byCodeLabo = []
+    
+    
     with open("./test_newFormat.csv", 'r', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
-            print(row);
-            
+            # print(row);
+            if row['Code article laboratoire'] not in byCodeLabo:
+                byCodeLabo.append(row['Code article laboratoire'])
+    print(byCodeLabo)
         
     """
     Code laboratoire;
