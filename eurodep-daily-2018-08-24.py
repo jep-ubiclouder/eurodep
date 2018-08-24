@@ -40,7 +40,7 @@ if __name__=='__main__':
     qry = 'select id, ProductCode from  Product2 where ProductCode in ('+','.join(["\'%s\'" % cp for cp in byCodeLabo]) +')'
     print(qry)
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
-    result = sf.query(qry_code_eurodep)
+    result = sf.query(qry)
     records =  result['records']
     for r in records:
         print(r)
