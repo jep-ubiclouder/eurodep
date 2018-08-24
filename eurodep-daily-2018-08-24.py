@@ -73,10 +73,11 @@ if __name__=='__main__':
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
             # print(row);
+            row['NormalizedEURODEP']='0'*(10-len(row['Code Eurodep du client']))+row['Code Eurodep du client']
             if row['Code article laboratoire'] not in byCodeLabo:
                 byCodeLabo.append(row['Code article laboratoire'])
             if row['Code Eurodep du client']    not in byCodeClient:
-                byCodeClient.append(row['Code Eurodep du client'])
+                byCodeClient.append(row['NormalizedEURODEP'])
             lignes.append(row)
     print(byCodeLabo)
     qryProd = 'select id, ProductCode from  Product2 where ProductCode in ('+','.join(["\'%s\'" % cp for cp in byCodeLabo]) +')'
@@ -109,7 +110,7 @@ if __name__=='__main__':
         print(r['Code Eurodep du client'] in byCLIENT.keys())
         '''
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['Code Eurodep du client'] in byCLIENT.keys():
-            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['Code Eurodep du client']]))
+            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP']]))
             
             
     print(toInsert)
