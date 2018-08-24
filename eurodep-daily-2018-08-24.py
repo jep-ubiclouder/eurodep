@@ -46,7 +46,7 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['Prix_Brut__c'] =recCSV['Prix unitaire brut']
     retVal['Quantite__c'] =recCSV['Quantité facturé']
     retVal['Prix_Net__c'] =recCSV['Prix unitaire net']
-    retVal['Code_EAN_EURODEP__c'] =recCSV['']
+    ## retVal['Code_EAN_EURODEP__c'] =recCSV['']
     retVal['Ligne__c'] =recCSV['N° ligne de facture']
     retVal['Code_Client_EURODEP__c'] =recCSV['']
     retVal['CA_Eurodep__c'] =recCSV['NormalizedEURODEP']
