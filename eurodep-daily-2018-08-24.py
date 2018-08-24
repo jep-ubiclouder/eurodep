@@ -91,7 +91,8 @@ if __name__=='__main__':
     produitsNotinSF = listeNotPresent(byCodeLabo,bySORIFA)
     
     
-    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s000\'" % cp[:-3] for cp in byCodeClient]) +','+ ','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +')'
+    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s000\'" % cp[:-3] for cp in byCodeClient]) +")" 
+    
     print(qryClient)
     result = sf.query_all(qryClient)
     print(qryClient)
@@ -99,6 +100,15 @@ if __name__=='__main__':
     
     byCLIENT = {}
     print(refClient)
+    for r in refClient:
+        byCLIENT[r['Code_EURODEP__c']]=r
+    
+    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +")" 
+    
+    print(qryClient)
+    result = sf.query_all(qryClient)
+    print(qryClient)
+    refClient =  result['records']
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
     clientsNotinSF = listeNotPresent(byCodeClient,byCLIENT)
