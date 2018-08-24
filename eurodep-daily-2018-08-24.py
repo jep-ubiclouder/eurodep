@@ -101,6 +101,7 @@ if __name__=='__main__':
     
     toInsert  =[]
     for r in lignes:
+        print(r)
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['Code Eurodep du client'] in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['Code Eurodep du client']]))
             
