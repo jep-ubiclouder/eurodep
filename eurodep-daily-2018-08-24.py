@@ -37,12 +37,14 @@ def listeNotPresent(listeCSV,listeQuery):
     return absents
 
 def checkUnkownClients(listCSV,listQRY):
-    absents =[]
-    for item in listCSV:
-        if item not in listQRY.keys() and item[:-3] not in absents:
-            absents.append(item[:-3])
+    absents =listeNotPresent(listCSV,listQRY)
+    res = []
+    for item in absents:
+        if (item[:-3]+'515' not in listQRY.keys()) and (item[:-3]+'000' not in listQRY.keys()) and item not in res:
+             res.append(item)
+        
     
-    return absents
+    return res
 
 
 def newSFRecord(recCSV,prodId,accId):
