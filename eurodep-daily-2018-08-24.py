@@ -31,7 +31,7 @@ def listeNotPresent(listeCSV,listeQuery):
     retourne les membres de listeCSV qui ne sont pas dans ListeQuery
     """
     absents = []
-    absents.append([ item for item in listeCSV if item not in listeQuery.keys() and item not in absents ])
+    absents.append( item for item in listeCSV if item not in listeQuery.keys() and item not in absents )
     return absents
 
 def checkUnkownClients(listCSV,listQRY):
