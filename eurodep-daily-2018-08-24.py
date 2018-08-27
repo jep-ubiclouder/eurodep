@@ -148,9 +148,7 @@ def processFile(fname):
     
     qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s000\'" % cp[:-3] for cp in byCodeClient]) +")" 
     
-    ## print(qryClient)
     result = sf.query_all(qryClient)
-    ## print(qryClient)
     refClient =  result['records']
     
     byCLIENT = {}
@@ -158,11 +156,8 @@ def processFile(fname):
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
     
-    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +")" 
-    
-    ## print(qryClient)
+    qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s515\'" % cp[:-3] for cp in byCodeClient]) +")"     
     result = sf.query_all(qryClient)
-    ## print(qryClient)
     refClient =  result['records']
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
@@ -170,15 +165,18 @@ def processFile(fname):
     
     toInsert  =[]
     for r in lignes:
-        if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'] in byCLIENT.keys():
-            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP']]))
+        if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
+            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
+        else if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
+            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
         else:
-            print(r['Code article laboratoire'] in  bySORIFA.keys(),r['Code article laboratoire'],r['NormalizedEURODEP'] in byCLIENT.keys(),r['NormalizedEURODEP'] )
+            print('Clioent inconnu',r['NormalizedEURODEP'])
+            
             
             
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
-    ## print(produitsNotinSF)
+    
     print(len(resulUpsert),len(lignes))
     
     if len(clientsNotinSF)>0:
