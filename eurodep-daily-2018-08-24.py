@@ -115,6 +115,8 @@ def processFile(fname):
     byCodeClient = []
     produitsInconnus = []
     lignes =[]
+    entetes ="Code laboratoire;Type de facture;N° de facture;N° ligne de facture;Date de facture;N° de commande Eurodep;Date de commande;Référence de commande du client;N° de BL Eurodep;Date du BL;Secteur;Code représentant;Nom du représentant;Code force de vente;Territoire;Cible du client;Catégorie;Segment;Code Région;Code Eurodep du client;Code CIP du client;Code UGA du client;Nom du client;Adresse de facturation;Code postal;Ville;Pays;Téléphone;Fax;Groupement du client;Code article Eurodep;Code article laboratoire;EAN article;Désignation article;Mouvement de stock;Quantité facturé;Prix unitaire brut;Prix unitaire net;Montant total de la ligne;Poids facturé;Taux de TVA;Taux de remise;Référence ligne de commande 1;Référence ligne de commande 2;Référence de vente de la commande".split(";")
+    print(entetes)
     with open("./work.txt", 'r', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
