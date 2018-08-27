@@ -107,7 +107,9 @@ if __name__=='__main__':
         now = datetime.strptime(args.parmDate, '%Y-%m-%d')
     if args.parmDate is None:
         now = datetime.now() - timedelta(days=1)
-        
+    
+    
+    print(now)    
     if args.reconnect is None or args.reconnect == False:
         compactDate = '%s%02i%02i' % (now.year, now.month, now.day)
         fn = getfromFTP(compactDate)
