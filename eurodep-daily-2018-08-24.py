@@ -34,12 +34,12 @@ def getfromFTP(compactDate):
     """
     eurodep = FTP(host='ftp.eurodep.fr', user='HOMMEDEFER', passwd='lhdf515')
     try:
-        print(eurodep.pwd())
+        ## print(eurodep.pwd())
         eurodep.cwd('OUT/ZR3/')
-        print('OZR3515*%s.CSV' % compactDate)
-        print(eurodep.dir('*'))
+        ## print('OZR3515*%s.CSV' % compactDate)
+        ## print(eurodep.dir('*'))
         truc = eurodep.nlst('OZR3515%s*.CSV' % compactDate)
-        print(compactDate)
+        ## print(compactDate)
     except all_errors as e:
         print('No File today')
         return False
@@ -97,37 +97,25 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['ky4upsert__c'] =recCSV['N° de facture']+recCSV['N° ligne de facture']
     retVal['Facture__c'] =recCSV['N° de facture']
     return retVal
-
-if __name__=='__main__':
-    
-    import argparse
-
-    parser = argparse.ArgumentParser(description='Short sample app')
-    parser.add_argument('-d', '--date', action="store", dest="parmDate")
-    parser.add_argument('-r', '--reconnect', action='store_true', default=False)
-    args = parser.parse_args()
-    from datetime import datetime, timedelta
-    if args.parmDate:
-        now = datetime.strptime(args.parmDate, '%Y-%m-%d')
-    if args.parmDate is None:
-        now = datetime.now() - timedelta(days=1)
-    
-    
-    print(now)    
-    if args.reconnect is None or args.reconnect == False:
-        compactDate = '%s%02i%02i' % (now.year-2000, now.month, now.day)
-        print(compactDate)
-        fn = getfromFTP(compactDate)
-        print(fn)
-        sys.exit()
-        if fn != False:
-            processFile(fn)
+def processFile(fn):
+    sourceEncoding = "iso-8859-1"
+    source = fname
+    BLOCKSIZE = 1048576  # or some other, desired size in bytes
+    with codecs.open(fname, "r", sourceEncoding) as sourceFile:
+        with codecs.open("./work.txt", "w", "utf-8") as targetFile:
+            while True:
+                contents = sourceFile.read(BLOCKSIZE)
+                if not contents:
+                    break
+                targetFile.write(contents)
+    # Je travaille dans le fichier temporaire qui en UTF8
+    dujour=[]
     
     byCodeLabo = []
     byCodeClient = []
     produitsInconnus = []
     lignes =[]
-    with open("./test_newFormat.csv", 'r', encoding='utf-8') as csvfile:
+    with open("./work.txt", 'r', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
             # print(row);
@@ -182,6 +170,32 @@ if __name__=='__main__':
     if len(clientsNotinSF)>0:
         getNewClientData(clientsNotinSF,lignes)
 
+if __name__=='__main__':
+    
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Short sample app')
+    parser.add_argument('-d', '--date', action="store", dest="parmDate")
+    parser.add_argument('-r', '--reconnect', action='store_true', default=False)
+    args = parser.parse_args()
+    from datetime import datetime, timedelta
+    if args.parmDate:
+        now = datetime.strptime(args.parmDate, '%Y-%m-%d')
+    if args.parmDate is None:
+        now = datetime.now() - timedelta(days=1)
+    
+    
+    print(now)    
+    if args.reconnect is None or args.reconnect == False:
+        compactDate = '%s%02i%02i' % (now.year-2000, now.month, now.day)
+        print(compactDate)
+        fn = getfromFTP(compactDate)
+        print('SUCCES GET',fn)
+        ## sys.exit()
+        if fn != False:
+            processFile(fn)
+    
+    
     
         
 
