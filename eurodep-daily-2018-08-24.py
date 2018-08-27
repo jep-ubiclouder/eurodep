@@ -34,8 +34,9 @@ def getfromFTP(compactDate):
     """
     eurodep = FTP(host='ftp.eurodep.fr', user='HOMMEDEFER', passwd='lhdf515')
     try:
+        print(eurodep.pwd())
         eurodep.cwd('OUT/ZR3/')
-        
+        print(eurodep.pwd())
         truc = eurodep.nlst('OZR3515*%s.CSV' % compactDate)
         print(compactDate)
     except all_errors as e:
