@@ -174,7 +174,7 @@ def processFile(fname):
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP']]))
             
             
-    print(clientsNotinSF)
+    print(toInsert)
     print(produitsNotinSF)
     if len(clientsNotinSF)>0:
         getNewClientData(clientsNotinSF,lignes)
