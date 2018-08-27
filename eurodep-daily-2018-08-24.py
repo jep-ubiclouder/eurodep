@@ -27,6 +27,40 @@ import csv
 
 import pprint
 
+def envoiemailTraite(LigneTraitee):
+    ''' Envoie une liste des lignes traitées'''
+    import smtplib
+    # [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
+    texteHTML= """
+    Bonjour,<br/>
+    Voici une liste des lignes intégrées dans le fichier du jour<br/>
+    """  
+    tableau = '''<table>
+    <tr><th>Facture </th><th>Code Eurodep </th><th> Nom </th><th> Ville </th><th> Produit </th><th> Qté</th><th> Total Net</th></tr>'''
+    for r in LigneTraitee:
+        print(r)
+        record =  "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"%(r['NOFAC'],r['CODCLI'],r['NOM'],r['VILLE'],r['DES'],r['QTE'],r['TOTNET'])
+        tableau += record
+    tableau +='</table>'
+    texteHTML += tableau
+     
+    print(texteHTML)
+    
+    """
+    from email.mime.text import MIMEText
+    msg = MIMEText(texteHTML, 'html')
+    msg['Subject'] = 'Lignes Integrées'
+    msg['From'] = 'salesforce@homme-de-fer.com' 
+    msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com,    jmastio@homme-de-fer.com,    mlabarthe@homme-de-fer.com' ## , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
+    # Send the message via our own SMTP server.
+    ## s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
+    s =  smtplib.SMTP(host='smtp.homme-de-fer.com',port=25)
+    s.login('salesforce@homme-de-fer.com','S@lf0rc3!')
+    s.send_message(msg)
+    s.quit()
+    print('Email Comptes envoyé')
+    """
+
 def getfromFTP(compactDate):
     """ 
     Telecharge le fichier du jour de la date passée en parammètre format YYYYMMDD
@@ -164,19 +198,19 @@ def processFile(fname):
     clientsNotinSF = checkUnkownClients(byCodeClient,byCLIENT)
     
     toInsert  =[]
+    lignesTraitees = []
     for r in lignes:
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
+            lignesTraitees.append(r)
         elif r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
+            lignesTraitees.append(r)
         else:
             print('Clioent inconnu',r['NormalizedEURODEP'])
-            
-            
-            
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
-    
+    envoiemailTraitees(lignesTraitees)
     print(len(resulUpsert),len(lignes))
     
     if len(clientsNotinSF)>0:
