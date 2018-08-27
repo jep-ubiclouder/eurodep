@@ -177,7 +177,7 @@ def processFile(fname):
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
     print(produitsNotinSF)
-    print(resulUpsert)
+    print(len(resulUpsert))
     
     if len(clientsNotinSF)>0:
         getNewClientData(clientsNotinSF,lignes)
