@@ -37,6 +37,7 @@ def getfromFTP(compactDate):
         print(eurodep.pwd())
         eurodep.cwd('OUT/ZR3/')
         print(eurodep.pwd())
+        print(eurodep.dir('*'))
         truc = eurodep.nlst('OZR3515*%s.CSV' % compactDate)
         print(compactDate)
     except all_errors as e:
