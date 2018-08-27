@@ -210,7 +210,7 @@ def processFile(fname):
             print('Clioent inconnu',r['NormalizedEURODEP'])
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
-    envoiemailTraitees(lignesTraitees)
+    envoiemailTraite(lignesTraitees)
     print(len(resulUpsert),len(lignes))
     
     if len(clientsNotinSF)>0:
