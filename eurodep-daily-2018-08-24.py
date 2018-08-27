@@ -63,7 +63,8 @@ def checkUnkownClients(listCSV,listQRY):
     return res
 
 def getNewClientData(clientsNotinSF,lignes):
-    for rec in ligne
+    # for rec in ligne
+    pass
 
 def newSFRecord(recCSV,prodId,accId):
     """
