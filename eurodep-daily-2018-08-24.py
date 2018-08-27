@@ -38,8 +38,8 @@ def envoiemailTraite(LigneTraitee):
     tableau = '''<table>
     <tr><th>Facture </th><th>Code Eurodep </th><th> Nom </th><th> Ville </th><th> Produit </th><th> Qté</th><th> Total Net</th></tr>'''
     for r in LigneTraitee:
-        print(r)
-        record =  "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"%(r['NOFAC'],r['CODCLI'],r['NOM'],r['VILLE'],r['DES'],r['QTE'],r['TOTNET'])
+        ## print(r)
+        record =  "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"%(r['N° de facture'],r['NormalizedEURODE'],r['Nom du client'],r['Ville'],r['Désignation article'],r['Quantité facturé'],r['Montant total de la ligne'])
         tableau += record
     tableau +='</table>'
     texteHTML += tableau
