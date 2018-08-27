@@ -97,7 +97,7 @@ def newSFRecord(recCSV,prodId,accId):
     retVal['ky4upsert__c'] =recCSV['N° de facture']+recCSV['N° ligne de facture']
     retVal['Facture__c'] =recCSV['N° de facture']
     return retVal
-def processFile(fn):
+def processFile(fname):
     sourceEncoding = "iso-8859-1"
     source = fname
     BLOCKSIZE = 1048576  # or some other, desired size in bytes
