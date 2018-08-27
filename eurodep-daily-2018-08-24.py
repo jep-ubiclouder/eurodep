@@ -119,8 +119,15 @@ def processFile(fname):
     print(entetes)
     with open("./work.txt", 'r', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
-        for row in reader:
+        for r in reader:
             # print(row);
+            row = {}
+            i = 0
+            while i < len(entetes):
+                row[entetes[i]]= r[i]
+                i += 1
+            print(row)
+                 
             row['NormalizedEURODEP']='0'*(10-len(row['Code Eurodep du client']))+row['Code Eurodep du client']
             if row['Code article laboratoire'] not in byCodeLabo:
                 byCodeLabo.append(row['Code article laboratoire'])
