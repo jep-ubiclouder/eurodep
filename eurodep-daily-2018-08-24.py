@@ -172,12 +172,14 @@ def processFile(fname):
     for r in lignes:
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'] in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP']]))
+        else:
+            print(r['Code article laboratoire'] in  bySORIFA.keys(),r['NormalizedEURODEP'] in byCLIENT.keys())
             
             
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
     print(produitsNotinSF)
-    print(len(resulUpsert))
+    print(len(resulUpsert),len(lignes))
     
     if len(clientsNotinSF)>0:
         getNewClientData(clientsNotinSF,lignes)
