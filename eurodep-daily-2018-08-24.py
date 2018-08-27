@@ -126,7 +126,7 @@ def processFile(fname):
             while i < len(entetes):
                 row[entetes[i]]= r[i]
                 i += 1
-            print(row)
+            ## print(row)
                  
             row['NormalizedEURODEP']='0'*(10-len(row['Code Eurodep du client']))+row['Code Eurodep du client']
             if row['Code article laboratoire'] not in byCodeLabo:
@@ -134,9 +134,9 @@ def processFile(fname):
             if row['Code Eurodep du client']    not in byCodeClient:
                 byCodeClient.append(row['NormalizedEURODEP'])
             lignes.append(row)
-    print(byCodeLabo)
+    ## print(byCodeLabo)
     qryProd = 'select id, ProductCode from  Product2 where ProductCode in ('+','.join(["\'%s\'" % cp for cp in byCodeLabo]) +')'
-    print(qryProd)
+    ## print(qryProd)
     sf = Salesforce(username='projets@homme-de-fer.com', password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     result = sf.query_all(qryProd)
     refProduits =  result['records']
@@ -148,7 +148,7 @@ def processFile(fname):
     
     qryClient =  "select id ,Code_EURODEP__c from Account where Code_EURODEP__c in ( "+','.join(["\'%s000\'" % cp[:-3] for cp in byCodeClient]) +")" 
     
-    print(qryClient)
+    ## print(qryClient)
     result = sf.query_all(qryClient)
     ## print(qryClient)
     refClient =  result['records']
@@ -178,10 +178,11 @@ def processFile(fname):
             
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
-    print(produitsNotinSF)
+    ## print(produitsNotinSF)
     print(len(resulUpsert),len(lignes))
     
     if len(clientsNotinSF)>0:
+        print('Clients not in sf')
         getNewClientData(clientsNotinSF,lignes)
 
 if __name__=='__main__':
