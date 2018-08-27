@@ -26,6 +26,24 @@ import os.path
 import csv
 
 import pprint
+
+def getfromFTP(compactDate):
+    """ 
+    Telecharge le fichier du jour de la date passée en parammètre format YYYYMMDD
+    Renvoie le nom du fichier ecrit sur le disque ou False si une erreur est survenue
+    """
+    eurodep = FTP(host='ftp.eurodep.fr', user='HOMMEDEFER', passwd='lhdf515')
+    try:
+        eurodep.cwd('OUT/ZR3')
+        truc = eurodep.nlst('OZR3515*%s.CSV' % compactDate)
+    except all_errors as e:
+        print('No File today')
+        return False
+
+    for t in truc:
+        eurodep.retrbinary('RETR %s' % t, open('%s' % t, 'wb').write)
+    return truc[0]
+
 def listeNotPresent(listeCSV,listeQuery):
     """
     retourne les membres de listeCSV qui ne sont pas dans ListeQuery
@@ -76,6 +94,27 @@ def newSFRecord(recCSV,prodId,accId):
     return retVal
 
 if __name__=='__main__':
+    
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Short sample app')
+    parser.add_argument('-d', '--date', action="store", dest="parmDate")
+    parser.add_argument('-r', '--reconnect', action='store_true', default=False)
+    args = parser.parse_args()
+    from datetime import datetime, timedelta
+    if args.parmDate:
+        now = datetime.strptime(args.parmDate, '%Y-%m-%d')
+    if args.parmDate is None:
+        now = datetime.now() - timedelta(days=1)
+        
+    if args.reconnect is None or args.reconnect == False:
+        compactDate = '%s%02i%02i' % (now.year, now.month, now.day)
+        fn = getfromFTP(compactDate)
+        print(fn)
+        sys.exit()
+        if fn != False:
+            processFile(fn)
+    
     byCodeLabo = []
     byCodeClient = []
     produitsInconnus = []
