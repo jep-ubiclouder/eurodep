@@ -167,7 +167,7 @@ def processFile(fname):
     for r in lignes:
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
-        else if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
+        elsif r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
             toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
         else:
             print('Clioent inconnu',r['NormalizedEURODEP'])
