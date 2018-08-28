@@ -250,7 +250,7 @@ def processFile(fname):
             produitsInconnus.append(r) 
         else:
             if r['NormalizedEURODEP'] not in clientsInconnus:
-                toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],accId=None, EURODEP = r['NormalizedEURODEP'][:-3]+'515']))
+                toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],accId=None, EURODEP = r['NormalizedEURODEP'][:-3]+'515'))
             lignesTraitees.append(r)
                 clientsInconnus[r['NormalizedEURODEP']]= r
                 clientsNotinSF.append(r)
