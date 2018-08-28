@@ -44,9 +44,8 @@ def envoiemailTraite(LigneTraitee):
     tableau +='</table>'
     texteHTML += tableau
      
-    print(texteHTML)
-    
-    """
+    ## print(texteHTML)
+
     from email.mime.text import MIMEText
     msg = MIMEText(texteHTML, 'html')
     msg['Subject'] = 'Lignes Integrées'
@@ -59,8 +58,43 @@ def envoiemailTraite(LigneTraitee):
     s.send_message(msg)
     s.quit()
     print('Email Comptes envoyé')
-    """
 
+def envoieEmailCI(clientsInconnus):
+    ''' Envoie une liste de compte qui ont un code EURODEP mais qui ne sont pas trouvé cette clef dans Salesforce'''
+    import smtplib
+    # [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
+    texteHTML= """
+    Bonjour,<br/>
+    Voici une liste des clients présents dans le fichier EURODEP que je n'ai pas pu trouver dans SalesForce.<br/>
+    Je les ai rattaché au compte temporaire COMPTE RECUP LIGNES en attendant que vous retrouviez leurs parents <br/>
+    Pouvez-vous les créer ou attacher le code Eurodep dans leur fiche, afin que je puisse ratacher les commandes.<br/>
+    Le rattachement sera effectué une fois par heure entre 9 heures du matin et 14 heures tout les jours<br/>
+     
+    """  
+    tableau = '''<table>
+    <tr><th>Code Eurodep </th><th> Nom </th><th> Adresse </th><th> Code Postal </th><th> Ville</th></tr>'''
+    for k in clientsInconnus.keys():
+        r=clientsInconnus[k]
+        record =  "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>"%(r['NormalizedEURODEP'],r['Nom du client'],r['Adresse de facturation'],r['Code postal'],r['Ville'])
+        tableau += record
+    tableau +='</table>'
+    texteHTML += tableau
+    
+    print(texteHTML)
+    from email.mime.text import MIMEText
+    msg = MIMEText(texteHTML, 'html')
+    msg['Subject'] = 'Lignes Integrées'
+    msg['From'] = 'salesforce@homme-de-fer.com' 
+    msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com,     jmastio@homme-de-fer.com,    mlabarthe@homme-de-fer.com' ## , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
+    # Send the message via our own SMTP server.
+    ## s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
+    s =  smtplib.SMTP(host='smtp.homme-de-fer.com',port=25)
+    s.login('salesforce@homme-de-fer.com','S@lf0rc3!')
+    s.send_message(msg)
+    s.quit()
+    print('Email Comptes envoyé')
+    
+    
 def getfromFTP(compactDate):
     """ 
     Telecharge le fichier du jour de la date passée en parammètre format YYYYMMDD
@@ -104,7 +138,7 @@ def getNewClientData(clientsNotinSF,lignes):
     # for rec in ligne
     pass
 
-def newSFRecord(recCSV,prodId,accId):
+def newSFRecord(recCSV,prodId,accId =None,EURODEP = None):
     """
     constriut un record a partir de la ligne du CSv
     Mappage statique
@@ -113,7 +147,12 @@ def newSFRecord(recCSV,prodId,accId):
     moins10= False
     if len(recCSV['Date de facture'])<8:
         moins10=True
-    retVal['Compte__c'] =accId['Id']
+    
+    if accId is not None :
+        retVal['Compte__c'] =accId['Id']
+    elif EURODEP is not None:
+        retVal['Code_EAN_EURODEP__c'] = EURODEP
+        
     retVal['Produit__c'] =prodId['Id']
     retVal['Bon_de_livraison__c'] =recCSV['N° de BL Eurodep']
     
@@ -195,19 +234,26 @@ def processFile(fname):
     refClient =  result['records']
     for r in refClient:
         byCLIENT[r['Code_EURODEP__c']]=r
-    clientsNotinSF = checkUnkownClients(byCodeClient,byCLIENT)
+    clientsNotinSF = []
     
     toInsert  =[]
     lignesTraitees = []
+    clientsInconnus = {}
     for r in lignes:
         if r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
-            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
+            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],accId = byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
             lignesTraitees.append(r)
         elif r['Code article laboratoire'] in  bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
-            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
+            toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],accId = byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
             lignesTraitees.append(r)
+        elif r['Code article laboratoire'] in  bySORIFA.keys():
+            produitsInconnus.append(r) 
         else:
-            print('Clioent inconnu',r['NormalizedEURODEP'])
+            if r['NormalizedEURODEP'] not in clientsInconnus:
+                toInsert.append(newSFRecord(r,bySORIFA[r['Code article laboratoire']],accId=None, EURODEP = r['NormalizedEURODEP'][:-3]+'515']))
+            lignesTraitees.append(r)
+                clientsInconnus[r['NormalizedEURODEP']]= r
+                clientsNotinSF.append(r)
     
     resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
     envoiemailTraite(lignesTraitees)
@@ -215,7 +261,7 @@ def processFile(fname):
     
     if len(clientsNotinSF)>0:
         print('Clients not in sf') 
-        getNewClientData(clientsNotinSF,lignes)
+        envoieEmailCI(clientsNotinSF)
 
 if __name__=='__main__':
     
