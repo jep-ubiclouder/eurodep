@@ -280,9 +280,10 @@ if __name__=='__main__':
     
     print(now)    
     if args.reconnect is None or args.reconnect == False:
-        compactDate = '%s%02i%02i' % (now.year-2000, now.month, now.day)
+        ## compactDate = '%s%02i%02i' % (now.year-2000, now.month, now.day)
         print(compactDate)
-        fn = getfromFTP(compactDate)
+        ## fn = getfromFTP(compactDate)
+        fn = open('./correctios2017.csv','r')
         print('SUCCES GET',fn)
         ## sys.exit()
         if fn != False:
