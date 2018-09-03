@@ -284,7 +284,7 @@ if __name__=='__main__':
         ## print(compactDate)
         ## fn = getfromFTP(compactDate)
         ## fn = open('./correctios2017.csv','r')
-        print('SUCCES GET',fn)
+        ## print('SUCCES GET',fn)
         ## sys.exit()
         if fn != False:
             processFile('./correctios2017.csv')
