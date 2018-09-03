@@ -255,7 +255,7 @@ def processFile(fname):
                 clientsInconnus[r['NormalizedEURODEP']]= r
                 clientsNotinSF.append(r)
     
-    resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
+    ## resulUpsert = sf.bulk.Commande__c.upsert(toInsert,'ky4upsert__c')
     envoiemailTraite(lignesTraitees)
     print(len(resulUpsert),len(lignes))
     
