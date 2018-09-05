@@ -287,7 +287,7 @@ if __name__=='__main__':
         print('SUCCES GET',fn)
         ## sys.exit()
         if fn != False:
-            processFile('./correctios2017.csv')
+            processFile(fn)
     
     
     
