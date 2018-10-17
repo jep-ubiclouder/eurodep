@@ -422,8 +422,9 @@ def connectLignes():
     import configparser
     config = configparser.ConfigParser()
     config.read('config.ini')
-    sf = Salesforce(username=config['DEFAULT']['username'], password=config['DEFAULT']['password'], security_token=config['DEFAULT']['security_token'])
-    
+    #sf = Salesforce(username=config['DEFAULT']['username'], password=config['DEFAULT']['password'], security_token=config['DEFAULT']['security_token'])
+    sf = Salesforce(username='projets@homme-de-fer.com',
+                    password='ubiclouder$2017', security_token='mQ8aTUVjtfoghbJSsZFhQqzJk')
     qry = 'select id, Code_Client_EURODEP__c,Compte__c from commande__c where Code_Client_EURODEP__c !=null  and Compte__c = null' 
     allEurodep = []
     Lignes =  sf.query_all(qry)['records']
