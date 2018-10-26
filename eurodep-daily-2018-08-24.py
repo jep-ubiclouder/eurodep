@@ -273,7 +273,7 @@ def processFile(fname):
             produitsInconnus.append(r)
         else:
             toInsert.append(newSFRecord(
-                r, bySORIFA[r['Code article laboratoire']], accId='0010Y000010w9dRQAQ', EURODEP=r['NormalizedEURODEP'][:-3]+'515'))
+                r, bySORIFA[r['Code article laboratoire']], accId={'Id':'0010Y000010w9dRQAQ'}, EURODEP=r['NormalizedEURODEP'][:-3]+'515'))
             lignesTraitees.append(r)
             print('hello from clients inconnus', r)
             if r['NormalizedEURODEP'] not in clientsInconnus.keys():
