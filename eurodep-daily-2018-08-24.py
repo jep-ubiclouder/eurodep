@@ -60,7 +60,7 @@ def envoiemailTraite(LigneTraitee):
     s.login('salesforce@homme-de-fer.com', 'S@lf0rc3!')
     s.send_message(msg)
     s.quit()
-    print('Email Comptes envoyé')
+    print('Email lignes envoyé')
 
 
 def envoieEmailCI(clientsInconnus):
@@ -272,7 +272,7 @@ def processFile(fname):
         elif r['Code article laboratoire'] in bySORIFA.keys():
             produitsInconnus.append(r)
         else:
-            if r['NormalizedEURODEP'] not in clientsInconnus:
+            if r['NormalizedEURODEP'] not in clientsInconnus.keys():
                 toInsert.append(newSFRecord(
                     r, bySORIFA[r['Code article laboratoire']], accId='0010Y000010w9dRQAQ', EURODEP=r['NormalizedEURODEP'][:-3]+'515'))
                 lignesTraitees.append(r)
