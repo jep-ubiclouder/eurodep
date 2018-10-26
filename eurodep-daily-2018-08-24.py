@@ -88,7 +88,7 @@ def envoieEmailCI(clientsInconnus):
     print(texteHTML)
     from email.mime.text import MIMEText
     msg = MIMEText(texteHTML, 'html')
-    msg['Subject'] = 'Lignes Integrées'
+    msg['Subject'] = 'Clients Inconnus'
     msg['From'] = 'salesforce@homme-de-fer.com'
     # , dKannengieser@asyspro.fr, adevisme@homme-de-fer.com, dk@asyspro.com'
     msg['To'] = 'lbronner@homme-de-fer.com, jep@ubiclouder.com,     jmastio@homme-de-fer.com,    mlabarthe@homme-de-fer.com'
