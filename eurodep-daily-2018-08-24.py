@@ -261,6 +261,7 @@ def processFile(fname):
     lignesTraitees = []
     clientsInconnus = {}
     for r in lignes:
+        print(r)
         if r['Code article laboratoire'] in bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
             toInsert.append(newSFRecord(
                 r, bySORIFA[r['Code article laboratoire']], accId=byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
