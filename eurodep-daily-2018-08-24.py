@@ -261,18 +261,22 @@ def processFile(fname):
     lignesTraitees = []
     clientsInconnus = {}
     for r in lignes:
-        print(r)
+        
         if r['Code article laboratoire'] in bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'000' in byCLIENT.keys():
+            print('case 1',r['NormalizedEURODEP'][:-3]+'000', r['Nom du client']) 
             toInsert.append(newSFRecord(
                 r, bySORIFA[r['Code article laboratoire']], accId=byCLIENT[r['NormalizedEURODEP'][:-3]+'000']))
             lignesTraitees.append(r)
         elif r['Code article laboratoire'] in bySORIFA.keys() and r['NormalizedEURODEP'][:-3]+'515' in byCLIENT.keys():
+            print('case 2',r['NormalizedEURODEP'][:-3]+'51', r['Nom du client']) 
             toInsert.append(newSFRecord(
                 r, bySORIFA[r['Code article laboratoire']], accId=byCLIENT[r['NormalizedEURODEP'][:-3]+'515']))
             lignesTraitees.append(r)
-        elif r['Code article laboratoire'] in bySORIFA.keys():
+        elif r['Code article laboratoire'] not in bySORIFA.keys():
+            print('case Produit',r['NormalizedEURODEP'][:-3]+'000', r['Nom du client']) 
             produitsInconnus.append(r)
         else:
+            print('case 4',r['NormalizedEURODEP'][:-3]+'000', r['Nom du client']) 
             toInsert.append(newSFRecord(
                 r, bySORIFA[r['Code article laboratoire']], accId={'Id':'0010Y000010w9dRQAQ'}, EURODEP=r['NormalizedEURODEP'][:-3]+'515'))
             lignesTraitees.append(r)
