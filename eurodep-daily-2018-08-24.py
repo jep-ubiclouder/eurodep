@@ -283,7 +283,7 @@ def processFile(fname):
     envoiemailTraite(lignesTraitees)
     print(len(resulUpsert), len(lignes))
 
-    if len(clientsNotinSF) > 0:
+    if len(clientsInconnus) > 0:
         print('Clients not in sf')
         envoieEmailCI(clientsInconnus)
 
