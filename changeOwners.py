@@ -51,6 +51,7 @@ if __name__ == '__main__':
     buff = []
     qry = 'select id from Contact'
     records = sf.query_all(qry)['records']
+    taille = len(records)
     for r in records:
         r['OwnerId'] = LB
         buff.append(r)
@@ -66,6 +67,7 @@ if __name__ == '__main__':
     cpt = 1
     qry = 'select id from Commande__c'
     records = sf.query_all(qry)['records']
+    taille = len(records)
     for r in records:
         r['OwnerId'] = LB
         buff.append(r)
