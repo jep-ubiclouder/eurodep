@@ -16,6 +16,7 @@ from _datetime import timedelta
 from datetime import date
 from ftplib import FTP, all_errors
 
+import datetime
 import codecs
 import os.path
 import csv
