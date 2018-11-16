@@ -30,7 +30,7 @@ def envoieMail(fileName):
     from email.mime.base import MIMEBase
     from email.mime.text import MIMEText
     from email.utils import COMMASPACE, formatdate
-from email import encoders
+    from email import encoders
     # [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
     texteHTML = """
     Bonjour,<br/>
