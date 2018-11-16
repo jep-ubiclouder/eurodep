@@ -51,7 +51,7 @@ def envoieMail(fileName):
     with open(fileName, 'rb') as file:
         part.set_payload(file.read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition','attachment; filename="{}"'.format(op.basename(path)))
+        part.add_header('Content-Disposition','attachment; filename=fileName)
         msg.attach(part)
     # Send the message via our own SMTP server.
     ## s = smtplib.SMTP(host='smtp.dsl.ovh.net',port=25)
