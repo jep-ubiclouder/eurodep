@@ -25,6 +25,12 @@ import xlsxwriter
 def envoieMail(fileName):
     ''' Envoie une liste des lignes traitées'''
     import smtplib
+    import os.path as op
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.base import MIMEBase
+    from email.mime.text import MIMEText
+    from email.utils import COMMASPACE, formatdate
+from email import encoders
     # [r['CODCLI'],r['NOM'],r['ADRESSE'],r['CP'],r['VILLE']]
     texteHTML = """
     Bonjour,<br/>
